@@ -3,120 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mini WMS — Case Study</title>
+<title>Muaz Dev — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
 <link href="theme.css" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   PAGE-SPECIFIC STYLES — miniwms-portfolio
-   Everything in theme.css is NOT repeated here
-═══════════════════════════════════════════ */
+/* ── PAGE-SPECIFIC: home only ─────────────── */
 
-/* ── PROBLEM / SOLUTION ─────────────────── */
-.psgr{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
-.pscard{background:var(--bg2);padding:2.8rem;position:relative;overflow:hidden;}
-.pscard::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;pointer-events:none;}
-.pscard.prob::before{background:radial-gradient(circle,rgba(255,87,34,0.09) 0%,transparent 70%);}
-.pscard.sol::before{background:radial-gradient(circle,rgba(79,140,255,0.11) 0%,transparent 70%);}
-.psic{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.5rem;}
-.psic.p{background:rgba(255,87,34,0.12);border:1px solid rgba(255,87,34,0.2);}
-.psic.s{background:rgba(79,140,255,0.12);border:1px solid rgba(79,140,255,0.2);}
-.pscard h3{font-weight:800;font-size:1.35rem;letter-spacing:-.02em;margin-bottom:.9rem;}
-.pscard p{font-size:.98rem;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:1rem;}
-.pslist{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-top:1.2rem;}
-.pslist li{display:flex;align-items:flex-start;gap:.65rem;font-size:.88rem;font-weight:300;color:var(--muted);}
-.pslist li::before{content:'×';color:#ff5722;font-weight:800;font-size:.88rem;flex-shrink:0;}
-.pslist.g li::before{content:'✓';color:var(--green);}
+.section-divider{display:flex;align-items:center;gap:1.2rem;margin-bottom:2.5rem;}
+.section-divider-line{flex:1;height:1px;background:var(--border);}
+.section-divider-label{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);white-space:nowrap;}
 
-/* ── TIMELINE ───────────────────────────── */
-.tl-sec{padding:7rem 0;}
-.tlhdr{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4.5rem;}
-.tlhdr-r{color:var(--muted);font-size:.98rem;font-weight:300;line-height:1.75;}
-.tlt{position:relative;}
-.tlline{position:absolute;left:21px;top:22px;bottom:22px;width:1px;background:linear-gradient(to bottom,transparent,var(--border),var(--blue),var(--border),transparent);}
-.tlit{display:grid;grid-template-columns:52px 1fr;gap:1.8rem;padding:2rem 0;border-bottom:1px solid var(--border);}
-.tlit:last-child{border-bottom:none;}
-.tlnode{display:flex;flex-direction:column;align-items:center;}
-.tlcirc{width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;position:relative;z-index:1;transition:border-color .3s,box-shadow .3s;}
-.tlit.a .tlcirc{border-color:var(--blue);box-shadow:0 0 0 4px rgba(79,140,255,0.14),0 0 18px rgba(79,140,255,0.28);background:rgba(79,140,255,0.1);}
-.tlbody{padding-top:.5rem;}
-.tlph{font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
-.tltit{font-weight:800;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:.45rem;}
-.tldesc{font-size:.96rem;font-weight:300;color:var(--muted);line-height:1.72;margin-bottom:1rem;}
-.tltags{display:flex;gap:.45rem;flex-wrap:wrap;}
-.tltag{font-size:.68rem;font-weight:600;letter-spacing:.04em;padding:.22rem .65rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+.feature-card.built:hover{border-color:rgba(79,140,255,.4);box-shadow:0 20px 40px rgba(0,0,0,.35),inset 3px 0 0 var(--blue);}
+.feature-card.maintained{opacity:.85;}
+.feature-card.maintained:hover{opacity:1;border-color:rgba(245,158,11,.35);box-shadow:0 14px 32px rgba(0,0,0,.28),inset 3px 0 0 rgba(245,158,11,.6);}
 
-/* ── FEATURE GRID (case study, not home) ── */
-.feat-sec{padding:7rem 0;}
-.fhdr{text-align:center;margin-bottom:3.5rem;}
-.fhdr .sub{margin:0 auto;}
-.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
-.fcard{background:var(--bg2);padding:2.1rem;position:relative;overflow:hidden;transition:background .25s;}
-.fcard:hover{background:rgba(255,255,255,.032);}
-.fcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--glass) 0%,transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;}
-.fcard:hover::after{opacity:1;}
-.fcard.wide{grid-column:span 2;}
-.ficw{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.1rem;background:var(--surface);border:1px solid var(--border);transition:border-color .3s,box-shadow .3s;}
-.fcard:hover .ficw{border-color:rgba(79,140,255,.4);box-shadow:0 0 18px rgba(79,140,255,.15);}
-.fcard h3{font-weight:800;font-size:.98rem;letter-spacing:-.01em;margin-bottom:.45rem;}
-.fcard p{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.6;}
+.card-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:100px;margin-bottom:.6rem;}
+.card-badge.built-badge{background:rgba(79,140,255,.1);border:1px solid rgba(79,140,255,.22);color:var(--blue);}
+.card-badge.maint-badge{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.22);color:#f59e0b;}
+.card-badge.migr-badge{background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.22);color:#a855f7;}
 
-/* ── SCREENSHOT SCROLL GALLERY ──────────── */
-.scr-sec{padding:7rem 0;overflow:hidden;}
-.scrhdr{margin-bottom:3.5rem;}
-.scrwrap{display:flex;gap:1.8rem;overflow-x:auto;padding:2rem 0 3.5rem;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-.scrwrap::-webkit-scrollbar{display:none;}
-.scrc{flex-shrink:0;width:260px;position:relative;transform:rotate(var(--rot,0deg));transition:transform .35s;}
-.scrc:hover{transform:rotate(0deg) translateY(-10px);}
-.scr-phone-wrap{background:linear-gradient(145deg,#1e2640,#0d1020);border:1.5px solid rgba(255,255,255,0.13);border-radius:36px;padding:11px;box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07);}
-.scr-phone-inner{border-radius:26px;overflow:hidden;height:480px;background:#000;}
-.scr-phone-inner img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
-.scr-label{text-align:center;margin-top:1.1rem;font-size:.7rem;font-weight:600;letter-spacing:.08em;color:var(--muted2);text-transform:uppercase;}
+.projects-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem;}
+.projects-intro-right{font-size:.95rem;font-weight:300;color:var(--muted);line-height:1.75;}
 
-/* ── TECH STACK ─────────────────────────── */
-.tech-sec{padding:7rem 0;}
-.techlyt{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
-.tg{display:flex;flex-direction:column;gap:1.1rem;}
-.tgrp-lbl{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:.5rem;}
-.trow{display:flex;flex-wrap:wrap;gap:.45rem;}
-.tpill{font-size:.76rem;font-weight:700;letter-spacing:.04em;padding:.42rem 1rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);transition:all .22s;cursor:default;}
-.tpill:hover{background:rgba(79,140,255,.12);border-color:rgba(79,140,255,.4);color:var(--blue);}
-.tpill.c{background:rgba(79,140,255,.1);border-color:rgba(79,140,255,.3);color:var(--blue);}
-.rolestack{display:flex;flex-direction:column;gap:.9rem;}
-.roleitem{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start;padding:1.3rem;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);transition:border-color .2s,background .2s;}
-.roleitem:hover{border-color:var(--border2);background:var(--glass);}
-.rolenum{font-weight:900;font-size:1.7rem;color:rgba(79,140,255,.18);line-height:1;min-width:34px;text-align:right;}
-.roleitem h4{font-weight:800;font-size:.92rem;margin-bottom:.2rem;}
-.roleitem p{font-size:.82rem;font-weight:300;color:var(--muted);}
+.stat-strip{display:flex;gap:3rem;flex-wrap:wrap;padding:2rem 2.5rem;border-radius:var(--r2);background:var(--surface);border:1px solid var(--border);margin-bottom:3.5rem;}
+.stat-strip-item label{display:block;font-size:.65rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted2);margin-bottom:.2rem;}
+.stat-strip-item span{font-weight:900;font-size:1.6rem;letter-spacing:-.03em;background:linear-gradient(135deg,var(--blue) 0%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-/* ── METRICS ────────────────────────────── */
-.met-sec{padding:7rem 0;}
-.metgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:1.8rem;}
-.metcell{background:var(--bg2);padding:2.6rem 2rem;text-align:center;position:relative;overflow:hidden;transition:background .2s;}
-.metcell:hover{background:rgba(255,255,255,.03);}
-.metcell::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:120px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(79,140,255,.1) 0%,transparent 70%);pointer-events:none;}
-.metnum{font-weight:900;font-size:clamp(2rem,2.8vw,2.9rem);letter-spacing:-.03em;background:linear-gradient(135deg,var(--blue) 0%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;}
-.metlbl{font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.45rem;display:block;}
-.awdg{padding:1.9rem 2.3rem;background:linear-gradient(135deg,rgba(79,140,255,.08) 0%,rgba(0,229,255,.04) 100%);border:1px solid rgba(79,140,255,.2);border-radius:var(--r2);display:flex;align-items:center;gap:1.8rem;backdrop-filter:blur(12px);}
-.awic{font-size:2.2rem;width:60px;height:60px;border-radius:18px;flex-shrink:0;background:rgba(79,140,255,.14);border:1px solid rgba(79,140,255,.24);display:flex;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(79,140,255,.18);}
-.awtxt h4{font-weight:800;font-size:1.1rem;margin-bottom:.28rem;}
-.awtxt p{font-size:.88rem;font-weight:300;color:var(--muted);}
+/* card icon fallback box */
+.card-icon-fallback{width:36px;height:36px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
 
-/* ── PAGE-SPECIFIC RESPONSIVE OVERRIDES ─── */
-@media(max-width:960px){
-  .psgr{grid-template-columns:1fr;}
-  .tlhdr{grid-template-columns:1fr;gap:1.5rem;}
-  .fgrid{grid-template-columns:1fr 1fr;}
-  .fcard.wide{grid-column:span 2;}
-  .techlyt{grid-template-columns:1fr;}
-  .metgrid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:600px){
-  .fgrid{grid-template-columns:1fr;}
-  .fcard.wide{grid-column:span 1;}
-  .metgrid{grid-template-columns:1fr 1fr;}
-  .awdg{flex-direction:column;text-align:center;}
-}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+@media(max-width:960px){.projects-intro{grid-template-columns:1fr;}.stat-strip{gap:2rem;}.hero{grid-template-columns:1fr;}}
+
+.timeline{position:relative;display:grid;grid-template-columns:1fr minmax(40px,2rem) 1fr;column-gap:3rem;max-width:920px;margin-top:2rem;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(79,140,255,.18);transform:translateX(-50%);}
+.timeline-item{position:relative;margin-bottom:1.6rem;padding:1.6rem 1.8rem;border-radius:24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,.08);}
+.timeline-item::before{content:'';position:absolute;left:50%;top:1.3rem;width:14px;height:14px;border-radius:50%;background:var(--blue);border:3px solid var(--bg);transform:translateX(-50%);}
+.timeline-item:nth-child(odd){grid-column:1;}
+.timeline-item:nth-child(even){grid-column:3;}
+.timeline-date{display:block;font-size:.92rem;font-weight:700;color:var(--blue);margin-bottom:.5rem;letter-spacing:.04em;text-transform:uppercase;}
+.timeline-item h3{margin:0 0 .4rem;font-size:1.18rem;font-weight:800;}
+.timeline-item p{margin:0;color:var(--muted);line-height:1.75;font-size:1rem;}
+
+@media(max-width:960px){.timeline{grid-template-columns:1fr;padding-left:0;}.timeline::before{left:1rem;transform:none;}.timeline-item{grid-column:1;padding-left:2.4rem;}.timeline-item::before{left:1rem;transform:none;}}
+
 </style>
 </head>
 <body>
@@ -125,14 +56,12 @@
 <div class="cursor-ring" id="curRing"></div>
 <div class="mesh"></div>
 
-<!-- NAV -->
 <nav>
-  <a class="nav-logo" href="index.html"><span class="nav-dot"></span>MuazDev</a>
+  <a class="nav-logo" href="#"><span class="nav-dot"></span>MuazDev</a>
   <div class="nav-links">
-    <a class="nav-link" href="#story">Story</a>
-    <a class="nav-link" href="#features">Features</a>
-    <a class="nav-link" href="#tech">Stack</a>
-    <a class="nav-cta" href="https://play.google.com/store/apps/details?id=com.miniwms.orderandinventory" target="_blank">View App ↗</a>
+    <a class="nav-link" href="#projects">Projects</a>
+    <a class="nav-link" href="#contact">Contact</a>
+    <a class="nav-cta" href="https://github.com/muazdev26" target="_blank">GitHub ↗</a>
   </div>
 </nav>
 
@@ -140,266 +69,327 @@
 <div style="position:relative;z-index:1;">
 <div class="hero rv">
   <div>
-    <div style="margin-bottom:1.3rem;">
-      <span class="tag"><span class="tag-dot"></span>Supply Chain Tech · Android App</span>
+    <div style="display:flex; align-items:flex-start; gap:2rem; margin-bottom:1.5rem;">
+      <img src="https://avatars.githubusercontent.com/u/76246519?v=4" alt="Muhammad Muaz"
+        loading="lazy"
+        style="width:110px;height:110px;border-radius:50%;border:2px solid var(--blue);margin-bottom:0;object-fit:cover;animation:float 3s ease-in-out infinite;display:block;">
+      <div class="hero-meta">
+        <h3 class="hero-title">Mobile App Developer</h3>
+        <div class="animated-text">
+          <span>Android</span>
+          <span>Compose</span>
+          <span>Kotlin Multiplatform</span>
+          <span>Flutter</span>
+          <span>Legacy Modernization</span>
+        </div>
+      </div>
     </div>
-    <h1 class="hero-headline">Mini<span class="grad">WMS</span><br>Pocket Warehouse OS</h1>
-    <p class="sub" style="max-width:450px;margin-bottom:2.2rem;line-height:1.72;">A pocket warehouse OS — Android-first, subscription-ready, and built for small operations with barcode, sync, and offline support.</p>
+    <div class="intro-line">Hi 👋, I am Muhammad Moaz</div>
+    <h1 class="hero-headline">I turn mobile ideas into production apps.</h1>
+    <p class="sub">I build <span class="hl">Android</span> and <span class="hl">Flutter</span> products, and use <span class="hl">Compose Multiplatform</span> to create modern cross-platform apps. I migrate legacy codebases to Jetpack Compose and deliver polished MVPs with fast, reliable execution.</p>
     <div class="hero-actions">
-      <a class="btn-p" href="https://play.google.com/store/apps/details?id=com.miniwms.orderandinventory" target="_blank">View on Play Store →</a>
-      <a class="btn-g" href="#story">Read Case Study</a>
-    </div>
-    <div class="chips">
-      <span class="chip">Kotlin</span>
-      <span class="chip">SQLDelight</span>
-      <span class="chip">Koin</span>
-      <span class="chip">Retrofit</span>
-      <span class="chip">Apache POI</span>
-      <span class="chip">ZXing</span>
-      <span class="chip">Play Billing</span>
-    </div>
-  </div>
-
-  <div class="hero-visual">
-    <div class="pglow"></div>
-
-    <div class="phone side-l">
-      <div class="ps">
-        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
-        <img class="ps-img" src="https://play-lh.googleusercontent.com/C2xCMx1ADfmzJkkcMNkgyh8uv4PA8k22i4knrL8qQS2gkshcSwTB4ljSUFH7RHeipBg=w2560-h1440-rw" alt="Orders screen" loading="lazy"/>
-      </div>
-    </div>
-
-    <div class="phone main">
-      <div class="ps">
-        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
-        <img class="ps-img" src="https://play-lh.googleusercontent.com/xxpbCZRopsppu9igHbEreT_MbAGRPvEhKLUzOTXTNAMZ2iRbl4kKBIVkLoT8AI8WdDo_=w2560-h1440-rw" alt="Dashboard screen" loading="lazy"/>
-      </div>
-    </div>
-
-    <div class="phone side-r">
-      <div class="ps">
-        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
-        <img class="ps-img" src="https://play-lh.googleusercontent.com/o7l0ZsRlS7SMwFrRkidW112VvgBB2Qt1_0DQpA56cqsnXZtS1EFlFwyI4NH3F7hESBo=w2560-h1440-rw" alt="Inventory screen" loading="lazy"/>
-      </div>
-    </div>
-
-    <div class="fbdg top"><span class="fbn">★ 4.5</span><span class="fbl">Play Store Rating</span></div>
-    <div class="fbdg bot">
-      <div class="fbrow"><div class="fbdot"></div><span style="font-size:.78rem;font-weight:700;">Live on Google Play</span></div>
-      <span class="fbl" style="margin-top:3px;display:block;">Subscription Active</span>
+      <a class="btn-p" href="https://github.com/muazdev26" target="_blank">View GitHub Profile →</a>
+      <a class="btn-g" href="#projects">Explore Work</a>
     </div>
   </div>
 </div>
 </div>
-
-<!-- ██ PROBLEM / SOLUTION ██ -->
-<section class="ps-sec" id="story">
-<div class="container">
-  <div style="margin-bottom:2.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>01 — The Challenge</span></div>
-  <div class="psgr rv d1">
-    <div class="pscard prob">
-      <div class="psic p">🔥</div>
-      <h3>The Problem</h3>
-      <p>Warehouse operations were stuck in spreadsheets, manual order copies, and missing stock visibility. Small teams needed a simple Android tool instead of expensive enterprise software.</p>
-      <ul class="pslist">
-        <li>Manual Excel tracking — slow and error-prone</li>
-        <li>No unified view of multi-platform e-commerce orders</li>
-        <li>Pick-and-pack errors generating costly refunds weekly</li>
-        <li>No bin location system — staff wasting time locating items</li>
-        <li>Enterprise WMS software priced out of reach</li>
-      </ul>
-    </div>
-    <div class="pscard sol">
-      <div class="psic s">⚡</div>
-      <h3>The Solution</h3>
-      <p>I built Mini WMS as a <span class="hl accent">lean Android</span> warehouse platform — order sync, barcode picking, and subscription billing for small operations.</p>
-      <ul class="pslist g">
-        <li>Live dashboard with stock, orders, and bins at a glance</li>
-        <li>One-tap sync from eBay, Amazon & Shopify</li>
-        <li>Barcode scanner for accurate, fast picking</li>
-        <li>Structured bin location system for organised fulfilment</li>
-        <li>Excel import/export — familiar to any operations team</li>
-      </ul>
-    </div>
-  </div>
-</div>
-</section>
 
 <!-- ██ TIMELINE ██ -->
-<section class="tl-sec">
-<div class="container">
-  <div class="tlhdr rv">
-    <div>
-      <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>02 — Timeline</span>
-      <h2 class="st">Two years of milestones.<br>No big-bang release.</h2>
+<section id="timeline" class="ps-sec">
+  <div class="container">
+    <div style="margin-bottom:2rem;" class="rv"><span class="tag"><span class="tag-dot"></span>01 — Timeline</span></div>
+    <h2 class="st rv">My Career Journey</h2>
+    <div class="timeline">
+      <div class="timeline-item rv d1">
+        <span class="timeline-date">Dec 2020 - Oct 2021</span>
+        <h3>Funzoft</h3>
+        <p>Onsite in Multan — Android development and client-facing delivery.</p>
+      </div>
+      <div class="timeline-item rv d2">
+        <span class="timeline-date">Feb 2022 - Sep 2022</span>
+        <h3>Eternosoft</h3>
+        <p>Freelance product development — enterprise apps and business workflows.</p>
+      </div>
+      <div class="timeline-item rv d3">
+        <span class="timeline-date">Apr 2022 - Sep 2022</span>
+        <h3>iGo Africa</h3>
+        <p>Freelance AgriTech marketplace work — payments, commerce, and farmer tools.</p>
+      </div>
+      <div class="timeline-item rv d1">
+        <span class="timeline-date">Mar 2023 - Jun 2023</span>
+        <h3>ToddTransit</h3>
+        <p>Freelance transport operations — route management and dispatch systems.</p>
+      </div>
+      <div class="timeline-item rv d2">
+        <span class="timeline-date">Jul 2023 - May 2025</span>
+        <h3>Mini WMS</h3>
+        <p>Freelance supply chain platform — inventory, scanning, and warehouse workflows.</p>
+      </div>
+      <div class="timeline-item rv d3">
+        <span class="timeline-date">Dec 2023 - Mar 2024</span>
+        <h3>Tabbery Mobile App</h3>
+        <p>Freelance mobile delivery — finished mobile product with design and launch support.</p>
+      </div>
+      <div class="timeline-item rv d1">
+        <span class="timeline-date">Feb 2024 - Dec 2025</span>
+        <h3>VisionTif</h3>
+        <p>Freelance design collaboration platform — client workflows and visual tools.</p>
+      </div>
+      <div class="timeline-item rv d2">
+        <span class="timeline-date">May 2024 - May 2025</span>
+        <h3>ScoutFlix</h3>
+        <p>Freelance sports tech build — cricket scouting, video highlights, and athlete workflows.</p>
+      </div>
     </div>
-    <div class="tlhdr-r">The scope was never defined upfront. Requirements came in waves — and I built, tested, and shipped at every stage. Each milestone made the product more powerful and the client's warehouse more efficient.</div>
   </div>
-  <div class="tlt rv d1">
-    <div class="tlline"></div>
-    <div>
-      <div class="tlit a">
-        <div class="tlnode"><div class="tlcirc">📦</div></div>
-        <div class="tlbody"><div class="tlph">Milestone 01 · Foundation</div><div class="tltit">Core Inventory Engine</div><div class="tldesc">Stock item management, manual PO and SO creation, bin location assignment, and basic reporting. The data backbone everything else runs on.</div><div class="tltags"><span class="tltag">SQLDelight</span><span class="tltag">Kotlin</span><span class="tltag">MVVM</span><span class="tltag">Koin DI</span></div></div>
-      </div>
-      <div class="tlit a">
-        <div class="tlnode"><div class="tlcirc">📊</div></div>
-        <div class="tlbody"><div class="tlph">Milestone 02 · Data</div><div class="tltit">Excel Import & Export</div><div class="tldesc">Bulk stock upload from .xlsx, sales order import, and full inventory report export. Built with Apache POI so the team could stay in spreadsheets for bulk tasks.</div><div class="tltags"><span class="tltag">Apache POI</span><span class="tltag">OpenCSV</span><span class="tltag">File Provider</span></div></div>
-      </div>
-      <div class="tlit a">
-        <div class="tlnode"><div class="tlcirc">📷</div></div>
-        <div class="tlbody"><div class="tlph">Milestone 03 · Hardware</div><div class="tltit">Barcode Scanner Integration</div><div class="tldesc">Camera and Bluetooth hardware scanner support for goods-in receiving, single-scan order picking, and stock-take counting. Pick errors dropped to near zero after this milestone.</div><div class="tltags"><span class="tltag">ZXing</span><span class="tltag">CameraX</span><span class="tltag">Bluetooth HID</span></div></div>
-      </div>
-      <div class="tlit a">
-        <div class="tlnode"><div class="tlcirc">🔗</div></div>
-        <div class="tlbody"><div class="tlph">Milestone 04 · Integration</div><div class="tltit">eBay · Amazon · Shopify Live Sync</div><div class="tldesc">Automated order pull from all three major e-commerce platforms via REST APIs. Background sync via WorkManager. Three stores, one unified order queue, live in the warehouse.</div><div class="tltags"><span class="tltag">Retrofit</span><span class="tltag">eBay API</span><span class="tltag">Amazon SP-API</span><span class="tltag">Shopify API</span><span class="tltag">WorkManager</span></div></div>
-      </div>
-      <div class="tlit a">
-        <div class="tlnode"><div class="tlcirc">🚀</div></div>
-        <div class="tlbody"><div class="tlph">Milestone 05 · Launch</div><div class="tltit">Subscription Billing & Google Play Launch</div><div class="tldesc">Google Play Billing integrated, monthly and annual subscription tiers configured, entitlement logic built, and the app submitted and approved for production on the Play Store.</div><div class="tltags"><span class="tltag">Play Billing KTX</span><span class="tltag">DataStore</span><span class="tltag">App Bundle</span><span class="tltag">Play Console</span></div></div>
-      </div>
-    </div>
-  </div>
-</div>
 </section>
 
-<!-- ██ FEATURES ██ -->
-<section class="feat-sec" id="features">
-<div class="container">
-  <div class="fhdr rv">
-    <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>03 — Features Built</span>
-    <h2 class="st">Everything a small warehouse needs.</h2>
-    <p class="sub">Every feature was built in direct response to a real operational pain point — no bloat, no filler.</p>
-  </div>
-  <div class="fgrid rv d1">
-    <div class="fcard wide"><div class="ficw">🔗</div><h3>Multi-Platform Order Sync</h3><p>Order sync from eBay, Amazon and Shopify with background <span class="hl">WorkManager</span> updates.</p></div>
-    <div class="fcard"><div class="ficw">📦</div><h3>Purchase & Sales Orders</h3><p>Purchase and sales order workflows with bin allocation and fulfilment tracking.</p></div>
-    <div class="fcard"><div class="ficw">📍</div><h3>Bin Location System</h3><p>Bin location routing for faster picking and organised inventory.</p></div>
-    <div class="fcard"><div class="ficw">📷</div><h3>Barcode Scanner</h3><p>Barcode scanning with CameraX and Bluetooth hardware support.</p></div>
-    <div class="fcard"><div class="ficw">📊</div><h3>Excel Import & Export</h3><p>Excel import/export for fast stock uploads and report exports.</p></div>
-    <div class="fcard"><div class="ficw">✈️</div><h3>Offline-First Architecture</h3><p><span class="hl">Offline-first</span> SQLDelight core with cloud sync when online.</p></div>
-    <div class="fcard"><div class="ficw">📈</div><h3>Charts & Analytics</h3><p>Charts for stock movement and fulfilment performance.</p></div>
-    <div class="fcard"><div class="ficw">💳</div><h3>In-App Subscription Billing</h3><p>Google Play Billing integration with subscription tiers and entitlement checks.</p></div>
-    <div class="fcard"><div class="ficw">🌍</div><h3>10+ Languages</h3><p>Multilingual UI for global warehouse operations.</p></div>
-  </div>
-</div>
-</section>
+<!-- ██ PROJECTS ██ -->
+<section id="projects" class="ps-sec">
+  <div class="container">
 
-<!-- ██ SCREENSHOTS ██ -->
-<section class="scr-sec">
-<div class="container">
-  <div class="scrhdr rv">
-    <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>04 — Real App Screenshots</span>
-    <h2 class="st">Inside the app — straight from the Play Store.</h2>
-  </div>
-</div>
-<div style="padding-left:max(2.5rem,(100vw - 1160px)/2);">
-  <div class="scrwrap rv d1">
-    <div class="scrc" style="--rot:-2deg;">
-      <div class="scr-phone-wrap"><div class="scr-phone-inner"><img src="https://play-lh.googleusercontent.com/xxpbCZRopsppu9igHbEreT_MbAGRPvEhKLUzOTXTNAMZ2iRbl4kKBIVkLoT8AI8WdDo_=w2560-h1440-rw" alt="Dashboard" loading="lazy"/></div></div>
-      <div class="scr-label">Dashboard</div>
-    </div>
-    <div class="scrc" style="--rot:1.5deg;margin-top:36px;">
-      <div class="scr-phone-wrap"><div class="scr-phone-inner"><img src="https://play-lh.googleusercontent.com/C2xCMx1ADfmzJkkcMNkgyh8uv4PA8k22i4knrL8qQS2gkshcSwTB4ljSUFH7RHeipBg=w2560-h1440-rw" alt="Orders" loading="lazy"/></div></div>
-      <div class="scr-label">Orders</div>
-    </div>
-    <div class="scrc" style="--rot:-1deg;margin-top:14px;">
-      <div class="scr-phone-wrap"><div class="scr-phone-inner"><img src="https://play-lh.googleusercontent.com/o7l0ZsRlS7SMwFrRkidW112VvgBB2Qt1_0DQpA56cqsnXZtS1EFlFwyI4NH3F7hESBo=w2560-h1440-rw" alt="Inventory" loading="lazy"/></div></div>
-      <div class="scr-label">Inventory</div>
-    </div>
-    <div class="scrc" style="--rot:2deg;margin-top:44px;">
-      <div class="scr-phone-wrap"><div class="scr-phone-inner"><img src="https://play-lh.googleusercontent.com/25iKIK5EFae0gH3ONb5Id4LvzyPjby0AEdA1SZwLha6lfqHeq1R_nGIiaiOLnFTGL20=w2560-h1440-rw" alt="Platform Sync" loading="lazy"/></div></div>
-      <div class="scr-label">Platform Sync</div>
-    </div>
-    <div class="scrc" style="--rot:-1.5deg;margin-top:22px;">
-      <div class="scr-phone-wrap"><div class="scr-phone-inner"><img src="https://play-lh.googleusercontent.com/xnRD1ADvflqSrRuEd--PEh2WJpnZ4FggjHX2t8N0IkUHKECh6V2DFinxF5mUiZrGs90=w2560-h1440-rw" alt="Barcode Scanner" loading="lazy"/></div></div>
-      <div class="scr-label">Barcode Scanner</div>
-    </div>
-    <div class="scrc" style="--rot:1deg;margin-top:30px;">
-      <div class="scr-phone-wrap"><div class="scr-phone-inner"><img src="https://play-lh.googleusercontent.com/2LiZaYC6oGPL0va5uErqi7QbHG4hE-3dBBSRISwIJBUQkCz2uUoFz-IMVTiYRewWl28=w2560-h1440-rw" alt="Reports" loading="lazy"/></div></div>
-      <div class="scr-label">Reports & Charts</div>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ██ TECH STACK ██ -->
-<section class="tech-sec" id="tech">
-<div class="container">
-  <div style="margin-bottom:.4rem;" class="rv">
-    <span class="tag"><span class="tag-dot"></span>05 — Stack & My Role</span>
-  </div>
-  <div class="techlyt">
-    <div class="rv">
-      <h2 class="st">Native Android.<br>No shortcuts.</h2>
-      <p class="sub" style="margin-bottom:2.3rem;">Every line in Kotlin — built for reliability in a real, live warehouse environment.</p>
-      <div class="tg">
-        <div>
-          <div class="tgrp-lbl">Language & Architecture</div>
-          <div class="trow"><span class="tpill c">Kotlin</span><span class="tpill c">MVVM</span><span class="tpill">Coroutines</span><span class="tpill">LiveData</span><span class="tpill">Navigation Component</span></div>
-        </div>
-        <div>
-          <div class="tgrp-lbl">Data & DI</div>
-          <div class="trow"><span class="tpill c">SQLDelight</span><span class="tpill c">Koin</span><span class="tpill">DataStore</span><span class="tpill">WorkManager</span></div>
-        </div>
-        <div>
-          <div class="tgrp-lbl">Networking & APIs</div>
-          <div class="trow"><span class="tpill">Retrofit 3</span><span class="tpill">OkHttp</span><span class="tpill">eBay API</span><span class="tpill">Amazon SP-API</span><span class="tpill">Shopify API</span></div>
-        </div>
-        <div>
-          <div class="tgrp-lbl">Device, UI & Monetisation</div>
-          <div class="trow"><span class="tpill">ZXing</span><span class="tpill">Apache POI</span><span class="tpill">MPAndroidChart</span><span class="tpill">Coil</span><span class="tpill">Play Billing KTX</span><span class="tpill">Firebase</span></div>
-        </div>
+    <div class="projects-intro rv">
+      <div>
+        <div style="margin-bottom:1rem;"><span class="tag"><span class="tag-dot"></span>02 — Project Portfolio</span></div>
+        <h2 class="st" style="margin-bottom:0;">15 apps. Built, maintained,<br>and migrated.</h2>
       </div>
+      <p class="projects-intro-right">Apps built for product launches, Compose migrations, and legacy Android rescue. Focused on fast MVP delivery, clean architecture, and business-ready deployments.</p>
     </div>
-    <div class="rolestack rv d2">
-      <div class="roleitem"><span class="rolenum">01</span><div><h4>Discovery & Architecture</h4><p>Turned loosely-defined business needs into structured milestones, data schemas, and a scalable Android architecture built to grow across 2+ years.</p></div></div>
-      <div class="roleitem"><span class="rolenum">02</span><div><h4>End-to-End Android Dev</h4><p>UI, business logic, local DB, all API integrations, background sync — every layer owned and delivered solo. First commit to production release.</p></div></div>
-      <div class="roleitem"><span class="rolenum">03</span><div><h4>Iterative Delivery & QA</h4><p>Working software shipped at every milestone. Continuous feedback loop with the client over 2+ years. Stable, clean handoffs each time.</p></div></div>
-      <div class="roleitem"><span class="rolenum">04</span><div><h4>Google Play Publishing</h4><p>App bundles, Play Console setup, subscription SKU configuration, internal test tracks, and full production launch management.</p></div></div>
-    </div>
-  </div>
-</div>
-</section>
 
-<!-- ██ METRICS ██ -->
-<section class="met-sec">
-<div class="container">
-  <div style="margin-bottom:2.2rem;" class="rv"><span class="tag"><span class="tag-dot"></span>06 — Impact & Outcome</span></div>
-  <h2 class="st rv" style="margin-bottom:2.8rem;">From spreadsheet chaos<br>to recurring revenue.</h2>
-  <div class="metgrid rv d1">
-    <div class="metcell"><span class="metnum">2+</span><span class="metlbl">Years of Development</span></div>
-    <div class="metcell"><span class="metnum">5</span><span class="metlbl">Major Milestones Shipped</span></div>
-    <div class="metcell"><span class="metnum">10+</span><span class="metlbl">Languages Supported</span></div>
-    <div class="metcell"><span class="metnum">Live</span><span class="metlbl">On Google Play Store</span></div>
-  </div>
-  <div class="awdg rv d2">
-    <div class="awic">🏆</div>
-    <div class="awtxt">
-      <h4>Client's Business Vision — Fully Realised</h4>
-      <p>The client came with a warehouse problem and a rough idea. Two years later, Mini WMS is a rated, subscription-powered product on Google Play — serving supply chain operators globally. Every requirement fulfilled. Delivered solo.</p>
+    <!-- STAT STRIP -->
+    <div class="stat-strip rv d1">
+      <div class="stat-strip-item"><label>Built from Scratch</label><span>9</span></div>
+      <div class="stat-strip-item"><label>Maintained / Updated</label><span>6</span></div>
+      <div class="stat-strip-item"><label>Migrated to Compose</label><span>2</span></div>
+      <div class="stat-strip-item"><label>Live on Play Store</label><span>10+</span></div>
     </div>
+
+    <!-- ── BUILT FROM SCRATCH ── -->
+    <div class="section-divider rv">
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">🔨 Built from Scratch</span>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="feature-grid rv d1">
+
+      <!-- Mini WMS -->
+      <div class="feature-card built" onclick="window.location.href='miniwms-portfolio.html'" style="cursor:pointer;">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <img src="https://play-lh.googleusercontent.com/xxpbCZRopsppu9igHbEreT_MbAGRPvEhKLUzOTXTNAMZ2iRbl4kKBIVkLoT8AI8WdDo_=w2560-h1440-rw"
+            alt="Mini WMS" loading="lazy" style="width:36px;height:36px;border-radius:8px;object-fit:cover;flex-shrink:0;">
+          <h3 style="margin:0;">Mini WMS</h3>
+        </div>
+        <p>Supply chain and logistics app with barcode scanning, Shopify sync, and order automation.</p>
+      </div>
+
+      <!-- iGo Africa -->
+      <div class="feature-card built" onclick="window.location.href='igoafrica-portfolio.html'" style="cursor:pointer;">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">🌍</div>
+          <h3 style="margin:0;">iGo Africa</h3>
+        </div>
+        <p>AgriTech marketplace connecting farmers with payments and commerce across East Africa.</p>
+      </div>
+
+      <!-- Scoutflix -->
+      <div class="feature-card built" onclick="window.location.href='scoutflix-portfolio.html'" style="cursor:pointer;">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <img src="https://www.scoutflix.com/wp-content/uploads/2025/05/icon-02-primary.png"
+            alt="Scoutflix" loading="lazy" style="width:36px;height:36px;border-radius:8px;object-fit:cover;flex-shrink:0;"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="card-icon-fallback" style="display:none;">🏏</div>
+          <h3 style="margin:0;">Scoutflix</h3>
+        </div>
+        <p>Sports tech app for cricket scouting with Compose UI, video highlights, and coach-athlete workflows.</p>
+      </div>
+
+      <!-- Visiontif -->
+      <div class="feature-card built" onclick="window.location.href='visiontif-portfolio.html'" style="cursor:pointer;">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">🎨</div>
+          <h3 style="margin:0;">Visiontif</h3>
+        </div>
+        <p>Design collaboration platform for creative teams, client pipelines, and visual approvals.</p>
+      </div>
+
+      <!-- Todd Transit -->
+      <div class="feature-card built" onclick="window.location.href='toddtransit-portfolio.html'" style="cursor:pointer;">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">🚌</div>
+          <h3 style="margin:0;">Todd Transit</h3>
+        </div>
+        <p>Transportation operations dashboard for route management, dispatch, and fleet visibility.</p>
+      </div>
+
+      <!-- Bluetooth Wake -->
+      <div class="feature-card built">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">📡</div>
+          <h3 style="margin:0;">Bluetooth Wake</h3>
+        </div>
+        <p>Consumer electronics app for Bluetooth automation, remote wake, and device control.</p>
+      </div>
+
+      <!-- Eternosoft Car Wash -->
+      <div class="feature-card built">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">🚗</div>
+          <h3 style="margin:0;">Eternosoft Car Wash</h3>
+        </div>
+        <p>Car wash service booking app with appointments, payments, and operator workflows.</p>
+      </div>
+
+      <!-- True Muslim -->
+      <div class="feature-card built">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">🕌</div>
+          <h3 style="margin:0;">True Muslim</h3>
+        </div>
+        <p>Prayer and lifestyle app with schedules, compass, and daily guidance.</p>
+      </div>
+
+      <!-- SurveyScriber -->
+      <div class="feature-card built">
+        <span class="card-badge built-badge">Built from Scratch</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">📋</div>
+          <h3 style="margin:0;">SurveyScriber</h3>
+        </div>
+        <p>Offline survey builder with data export and analytics-ready output.</p>
+      </div>
+
+    </div>
+
+    <!-- ── MAINTAINED & MIGRATED ── -->
+    <div class="section-divider rv" style="margin-top:4rem;">
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">🔧 Maintained &amp; Migrated</span>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <p class="sub rv" style="margin-bottom:2.5rem;max-width:680px;">Existing Android apps, modernised and stabilised. I handle bug fixes, feature delivery, performance tuning, and Compose migration.</p>
+
+    <div class="feature-grid rv d1">
+
+      <!-- Santertainment -->
+      <div class="feature-card maintained">
+        <span class="card-badge maint-badge">Maintained</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <img src="https://play-lh.googleusercontent.com/LaIBGLJHyoXbObOUyh_W130aWJoZTz_11-Q32p_wNtWIbKRQpzOKIfjWsrQvXm-7w5Q=w480-h960"
+            alt="Santertainment" loading="lazy" style="width:36px;height:36px;border-radius:8px;object-fit:cover;flex-shrink:0;"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="card-icon-fallback" style="display:none;">🖼️</div>
+          <h3 style="margin:0;">Santertainment Wallpaper</h3>
+        </div>
+        <p>Consumer media app for live wallpapers — performance fixes, memory cleanup, and premium IAP.</p>
+      </div>
+
+      <!-- Area Calculator -->
+      <div class="feature-card maintained">
+        <span class="card-badge maint-badge">Maintained</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <img src="https://play-lh.googleusercontent.com/UIXLuGCa68N-lWCiUYWOZvlCCTPH8jr2bXfVHbPeXKK2E82W3qY-ZF50QnXGhsoNM5M=w480-h960"
+            alt="Area Calculator" loading="lazy" style="width:36px;height:36px;border-radius:8px;object-fit:cover;flex-shrink:0;"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="card-icon-fallback" style="display:none;">📐</div>
+          <h3 style="margin:0;">Area Calculator For Land</h3>
+        </div>
+        <p>Construction and land planning tool — GPS area calculations and Maps SDK maintenance.</p>
+      </div>
+
+      <!-- My Masjid Quba -->
+      <div class="feature-card maintained">
+        <span class="card-badge maint-badge">Maintained</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">🕍</div>
+          <h3 style="margin:0;">My Masjid Quba</h3>
+        </div>
+        <p>Faith and community app — location fixes, notifications, and release support.</p>
+      </div>
+
+      <!-- Planetroofing -->
+      <div class="feature-card maintained">
+        <span class="card-badge maint-badge">Maintained</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <img src="https://play-lh.googleusercontent.com/RECdNLketZfR8NIudxiQXpdA3acatKgkn_hS6GZpRk4wHPUL9XSCHa7I0jsEobXSJw4u=w480-h960"
+            alt="Planetroofing" loading="lazy" style="width:36px;height:36px;border-radius:8px;object-fit:cover;flex-shrink:0;"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="card-icon-fallback" style="display:none;">🏠</div>
+          <h3 style="margin:0;">Planetroofing</h3>
+        </div>
+        <p>Home services app for roofing operations, project tracking, task updates, and stability improvements.</p>
+      </div>
+
+      <!-- WhereAreYou -->
+      <div class="feature-card maintained">
+        <span class="card-badge maint-badge">Maintained</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">📍</div>
+          <h3 style="margin:0;">WhereAreYou</h3>
+        </div>
+        <p>Field tracking app for real-time location sharing, background tracking, and alert stability.</p>
+      </div>
+
+      <!-- Zibdy Health -->
+      <div class="feature-card maintained">
+        <span class="card-badge maint-badge">Maintained</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <img src="https://play-lh.googleusercontent.com/sJXcL0LjrBaZ6MfUVwGg1KNgQALjuxBHFxsIFiVCvp2CmpanxZw1lJJOyCZm_Z8U-w=s48-rw"
+            alt="Zibdy Health" loading="lazy" style="width:36px;height:36px;border-radius:8px;object-fit:cover;flex-shrink:0;"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="card-icon-fallback" style="display:none;">🏥</div>
+          <h3 style="margin:0;">Zibdy Health</h3>
+        </div>
+        <p>Health booking app — sync fixes, auth stability, and feature support.</p>
+      </div>
+
+      <!-- Salatuk — Migrated -->
+      <div class="feature-card" style="border-color:rgba(168,85,247,.2);">
+        <span class="card-badge migr-badge">Migrated to Compose</span>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+          <div class="card-icon-fallback">🕌</div>
+          <h3 style="margin:0;">Salatuk (صلاتك)</h3>
+        </div>
+        <p>Prayer app migrated to Compose for better architecture and performance.
+          <a href="https://play.google.com/store/apps/details?id=com.spiritsoft.prayertimes.salatuk.muslims"
+            target="_blank"
+            style="display:inline-flex;align-items:center;gap:.25rem;margin-top:.5rem;font-size:.75rem;font-weight:600;color:var(--blue);text-decoration:none;opacity:.8;">
+            View on Play Store ↗
+          </a>
+        </p>
+      </div>
+
+    </div>
+
   </div>
-</div>
 </section>
 
 <!-- ██ CTA ██ -->
-<section class="cta-sec">
-<div class="container" style="position:relative;z-index:1;">
-  <span class="tag" style="margin-bottom:1.4rem;display:inline-flex;"><span class="tag-dot"></span>Let's build together</span>
-  <h2>Got an idea?<br><span class="grad">Let's ship it.</span></h2>
-  <p>I take Android projects from concept to the Play Store — complex integrations, long-term iterative builds, and real-world operational challenges welcome.</p>
-  <div class="ctabtns">
-    <a class="btn-p" href="https://play.google.com/store/apps/details?id=com.miniwms.orderandinventory" target="_blank">View Mini WMS on Play Store →</a>
-    <a class="btn-g" href="mailto:muaz8601@gmail.com">Get in Touch</a>
+<section class="cta-sec" id="contact">
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="tag" style="margin-bottom:1.4rem;display:inline-flex;"><span class="tag-dot"></span>Let's Build Together</span>
+    <h2>Turn your idea into production<br><span class="grad">with the same system, same quality.</span></h2>
+    <p>Let’s ship your Android or Flutter MVP and tame legacy apps with a fast, production-ready roadmap.</p>
+    <div class="ctabtns">
+      <a class="btn-p" href="https://github.com/muazdev26" target="_blank">GitHub Profile →</a>
+      <a class="btn-g" href="mailto:muaz8601@gmail.com">Email Me</a>
+    </div>
   </div>
-</div>
 </section>
 
 <footer>
-  <p>Mini WMS — Android Portfolio Case Study</p>
-  <p>Kotlin · SQLDelight · Koin · Retrofit · Apache POI · ZXing · Play Billing · Firebase</p>
+  <p>Muaz Dev — Android Portfolio</p>
+  <p>Kotlin · Jetpack Compose · CMP · MVVM · Hilt · Koin · SQLDelight · Play Billing</p>
 </footer>
 
 <script>
@@ -407,7 +397,7 @@ const cur=document.getElementById('cur'),ring=document.getElementById('curRing')
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
 (function animC(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animC);})();
-document.querySelectorAll('a,button').forEach(el=>{
+document.querySelectorAll('a,button,[onclick]').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='#00e5ff';});
   el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='#4f8cff';});
 });

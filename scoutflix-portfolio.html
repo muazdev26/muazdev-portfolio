@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scoutflix — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+<link href="theme.css" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   PAGE-SPECIFIC — scoutflix-portfolio.html
+   Colours: MiniWMS blue palette (no overrides)
+═══════════════════════════════════════════ */
+
+/* ── PROBLEM / SOLUTION ─────────────────── */
+.psgr{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.pscard{background:var(--bg2);padding:2.8rem;position:relative;overflow:hidden;}
+.pscard::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;pointer-events:none;}
+.pscard.prob::before{background:radial-gradient(circle,rgba(255,87,34,0.09) 0%,transparent 70%);}
+.pscard.sol::before{background:radial-gradient(circle,rgba(79,140,255,0.11) 0%,transparent 70%);}
+.psic{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.5rem;}
+.psic.p{background:rgba(255,87,34,0.12);border:1px solid rgba(255,87,34,0.2);}
+.psic.s{background:rgba(79,140,255,0.12);border:1px solid rgba(79,140,255,0.2);}
+.pscard h3{font-weight:800;font-size:1.35rem;letter-spacing:-.02em;margin-bottom:.9rem;}
+.pscard p{font-size:.98rem;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:1rem;}
+.pslist{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-top:1.2rem;}
+.pslist li{display:flex;align-items:flex-start;gap:.65rem;font-size:.88rem;font-weight:300;color:var(--muted);}
+.pslist li::before{content:'×';color:#ff5722;font-weight:800;font-size:.88rem;flex-shrink:0;}
+.pslist.g li::before{content:'✓';color:var(--blue);}
+
+/* ── TIMELINE ───────────────────────────── */
+.tl-sec{padding:7rem 0;}
+.tlhdr{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4.5rem;}
+.tlhdr-r{color:var(--muted);font-size:.98rem;font-weight:300;line-height:1.75;}
+.tlt{position:relative;}
+.tlline{position:absolute;left:21px;top:22px;bottom:22px;width:1px;background:linear-gradient(to bottom,transparent,var(--border),var(--blue),var(--border),transparent);}
+.tlit{display:grid;grid-template-columns:52px 1fr;gap:1.8rem;padding:2rem 0;border-bottom:1px solid var(--border);}
+.tlit:last-child{border-bottom:none;}
+.tlnode{display:flex;flex-direction:column;align-items:center;}
+.tlcirc{width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;position:relative;z-index:1;transition:border-color .3s,box-shadow .3s;}
+.tlit.a .tlcirc{border-color:var(--blue);box-shadow:0 0 0 4px rgba(79,140,255,0.14),0 0 18px rgba(79,140,255,0.28);background:rgba(79,140,255,0.1);}
+.tlbody{padding-top:.5rem;}
+.tlph{font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
+.tltit{font-weight:800;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:.45rem;}
+.tldesc{font-size:.96rem;font-weight:300;color:var(--muted);line-height:1.72;margin-bottom:1rem;}
+.tltags{display:flex;gap:.45rem;flex-wrap:wrap;}
+.tltag{font-size:.68rem;font-weight:600;letter-spacing:.04em;padding:.22rem .65rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+
+/* ── FEATURE GRID ───────────────────────── */
+.feat-sec{padding:7rem 0;}
+.fhdr{text-align:center;margin-bottom:3.5rem;}
+.fhdr .sub{margin:0 auto;}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.fcard{background:var(--bg2);padding:2.1rem;position:relative;overflow:hidden;transition:background .25s;}
+.fcard:hover{background:rgba(255,255,255,.032);}
+.fcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--glass) 0%,transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;}
+.fcard:hover::after{opacity:1;}
+.fcard.wide{grid-column:span 2;}
+.ficw{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.1rem;background:var(--surface);border:1px solid var(--border);transition:border-color .3s,box-shadow .3s;}
+.fcard:hover .ficw{border-color:rgba(79,140,255,.4);box-shadow:0 0 18px rgba(79,140,255,.15);}
+.fcard h3{font-weight:800;font-size:.98rem;letter-spacing:-.01em;margin-bottom:.45rem;}
+.fcard p{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.6;}
+
+/* ── TECH STACK ─────────────────────────── */
+.tech-sec{padding:7rem 0;}
+.techlyt{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.tg{display:flex;flex-direction:column;gap:1.1rem;}
+.tgrp-lbl{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:.5rem;}
+.trow{display:flex;flex-wrap:wrap;gap:.45rem;}
+.tpill{font-size:.76rem;font-weight:700;letter-spacing:.04em;padding:.42rem 1rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);transition:all .22s;cursor:default;}
+.tpill:hover{background:rgba(79,140,255,.12);border-color:rgba(79,140,255,.4);color:var(--blue);}
+.tpill.c{background:rgba(79,140,255,.1);border-color:rgba(79,140,255,.3);color:var(--blue);}
+.rolestack{display:flex;flex-direction:column;gap:.9rem;}
+.roleitem{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start;padding:1.3rem;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);transition:border-color .2s,background .2s;}
+.roleitem:hover{border-color:var(--border2);background:var(--glass);}
+.rolenum{font-weight:900;font-size:1.7rem;color:rgba(79,140,255,.18);line-height:1;min-width:34px;text-align:right;}
+.roleitem h4{font-weight:800;font-size:.92rem;margin-bottom:.2rem;}
+.roleitem p{font-size:.82rem;font-weight:300;color:var(--muted);}
+
+/* ── METRICS ────────────────────────────── */
+.met-sec{padding:7rem 0;}
+.metgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:1.8rem;}
+.metcell{background:var(--bg2);padding:2.6rem 2rem;text-align:center;position:relative;overflow:hidden;transition:background .2s;}
+.metcell:hover{background:rgba(255,255,255,.03);}
+.metcell::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:120px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(79,140,255,.1) 0%,transparent 70%);pointer-events:none;}
+.metnum{font-weight:900;font-size:clamp(2rem,2.8vw,2.9rem);letter-spacing:-.03em;background:linear-gradient(135deg,var(--blue) 0%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;}
+.metlbl{font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.45rem;display:block;}
+.awdg{padding:1.9rem 2.3rem;background:linear-gradient(135deg,rgba(79,140,255,.08) 0%,rgba(0,229,255,.04) 100%);border:1px solid rgba(79,140,255,.2);border-radius:var(--r2);display:flex;align-items:center;gap:1.8rem;backdrop-filter:blur(12px);}
+.awic{font-size:2.2rem;width:60px;height:60px;border-radius:18px;flex-shrink:0;background:rgba(79,140,255,.14);border:1px solid rgba(79,140,255,.24);display:flex;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(79,140,255,.18);}
+.awtxt h4{font-weight:800;font-size:1.1rem;margin-bottom:.28rem;}
+.awtxt p{font-size:.88rem;font-weight:300;color:var(--muted);}
+
+/* ── SCREENSHOT SCROLL GALLERY ──────────── */
+.scr-sec{padding:7rem 0;overflow:hidden;}
+.scrhdr{margin-bottom:3.5rem;}
+.scrwrap{display:flex;gap:1.8rem;overflow-x:auto;padding:2rem 0 3.5rem;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.scrwrap::-webkit-scrollbar{display:none;}
+.scrc{flex-shrink:0;width:260px;position:relative;transform:rotate(var(--rot,0deg));transition:transform .35s;}
+.scrc:hover{transform:rotate(0deg) translateY(-10px);}
+.scr-phone-wrap{background:linear-gradient(145deg,#1e2640,#0d1020);border:1.5px solid rgba(255,255,255,0.13);border-radius:36px;padding:11px;box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07);}
+.scr-phone-inner{border-radius:26px;overflow:hidden;height:480px;background:#000;}
+.scr-phone-inner img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+.scr-label{text-align:center;margin-top:1.1rem;font-size:.7rem;font-weight:600;letter-spacing:.08em;color:var(--muted2);text-transform:uppercase;}
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media(max-width:960px){
+  .psgr{grid-template-columns:1fr;}
+  .tlhdr{grid-template-columns:1fr;gap:1.5rem;}
+  .fgrid{grid-template-columns:1fr 1fr;}
+  .fcard.wide{grid-column:span 2;}
+  .techlyt{grid-template-columns:1fr;}
+  .metgrid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .fgrid{grid-template-columns:1fr;}
+  .fcard.wide{grid-column:span 1;}
+  .metgrid{grid-template-columns:1fr 1fr;}
+  .awdg{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+<div class="mesh"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html"><span class="nav-dot"></span>MuazDev</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#story">Story</a>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#tech">Stack</a>
+    <a class="nav-cta" href="https://www.scoutflix.com" target="_blank">Visit Scoutflix ↗</a>
+  </div>
+</nav>
+
+<!-- ██ HERO ██ -->
+<div style="position:relative;z-index:1;">
+<div class="hero rv">
+  <div>
+    <div style="margin-bottom:1.3rem;">
+      <span class="tag"><span class="tag-dot"></span>SportsTech · Android · Compose</span>
+    </div>
+    <h1 class="hero-headline">Scout<span class="grad">flix</span><br>Cricket Scouting OS</h1>
+    <p class="sub" style="max-width:450px;margin-bottom:2.2rem;line-height:1.72;">
+      A Compose-first cricket scouting app with video, athlete ratings, workflow tools, and Firebase delivery.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-p" href="https://www.scoutflix.com" target="_blank">Visit Scoutflix →</a>
+      <a class="btn-g" href="#story">Read Case Study</a>
+    </div>
+    <div class="chips">
+      <span class="chip">Jetpack Compose</span>
+      <span class="chip">ExoPlayer / Media3</span>
+      <span class="chip">Hilt</span>
+      <span class="chip">Retrofit</span>
+      <span class="chip">Firebase</span>
+      <span class="chip">Paging 3</span>
+      <span class="chip">Coil 3</span>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="pglow"></div>
+
+    <!-- Left phone: screenshot 2 with illustrated fallback -->
+    <div class="phone side-l">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <div style="flex:1;position:relative;overflow:hidden;background:#080d1c;">
+          <!-- illustrated fallback always visible underneath -->
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:9px;gap:5px;">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(255,255,255,.04);border-radius:9px;"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">🏏</div><div><div style="font-size:8px;font-weight:700;color:#fff;">Athlete Profile</div><div style="font-size:7px;color:rgba(255,255,255,.3);">Batting · Bowling · Fitness</div></div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;flex:1;">
+              <div style="padding:7px;background:rgba(79,140,255,.08);border-radius:8px;border:1px solid rgba(79,140,255,.15);"><div style="font-size:6px;color:rgba(255,255,255,.3);">Batting</div><div style="font-size:13px;font-weight:800;color:#fff;">8.4</div></div>
+              <div style="padding:7px;background:rgba(0,229,255,.06);border-radius:8px;border:1px solid rgba(0,229,255,.12);"><div style="font-size:6px;color:rgba(255,255,255,.3);">Bowling</div><div style="font-size:13px;font-weight:800;color:#fff;">7.1</div></div>
+              <div style="padding:7px;background:rgba(255,255,255,.04);border-radius:8px;"><div style="font-size:6px;color:rgba(255,255,255,.3);">Fitness</div><div style="font-size:13px;font-weight:800;color:#fff;">9.2</div></div>
+              <div style="padding:7px;background:rgba(255,255,255,.04);border-radius:8px;"><div style="font-size:6px;color:rgba(255,255,255,.3);">Mental</div><div style="font-size:13px;font-weight:800;color:#fff;">8.8</div></div>
+            </div>
+          </div>
+          <!-- real screenshot floats on top once loaded -->
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;"
+            src="images/scoutflix-athlete-profile.jpg"
+            alt="Scoutflix athlete profile" loading="lazy"
+            onerror="this.style.display='none'"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main phone: screenshot 1 with illustrated fallback -->
+    <div class="phone main">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <div style="flex:1;position:relative;overflow:hidden;background:#080d1c;">
+          <!-- illustrated fallback -->
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;">
+            <div style="padding:9px 13px;background:linear-gradient(180deg,#0e1628 0%,#080d1c 100%);border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:13px;font-weight:800;color:#fff;">Scoutflix</div>
+              <div style="font-size:8px;color:rgba(255,255,255,.35);margin-top:1px;">Cricket Scouting Platform</div>
+            </div>
+            <div style="padding:8px;display:flex;flex-direction:column;gap:5px;flex:1;">
+              <div style="border-radius:10px;overflow:hidden;background:#000;position:relative;height:86px;">
+                <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(79,140,255,.2),rgba(0,0,0,.8));display:flex;align-items:center;justify-content:center;">
+                  <div style="width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:10px;">▶</div>
+                </div>
+                <div style="position:absolute;bottom:5px;left:7px;right:7px;"><span style="font-size:7px;font-weight:700;color:#fff;">Match Highlight</span></div>
+              </div>
+              <div style="font-size:6.5px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.22);">Recent Sessions</div>
+              <div style="display:flex;align-items:center;gap:6px;padding:6px 7px;background:rgba(255,255,255,.04);border-radius:8px;"><div style="width:18px;height:18px;border-radius:5px;background:rgba(79,140,255,.2);display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;">🏏</div><div style="flex:1;"><div style="font-size:7px;font-weight:700;color:rgba(255,255,255,.8);">Batting Drills</div></div><div style="font-size:6px;padding:1px 5px;border-radius:8px;background:rgba(0,229,255,.15);color:#7ff0ff;">8.6</div></div>
+              <div style="display:flex;align-items:center;gap:6px;padding:6px 7px;background:rgba(255,255,255,.04);border-radius:8px;"><div style="width:18px;height:18px;border-radius:5px;background:rgba(0,229,255,.15);display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;">🎯</div><div style="flex:1;"><div style="font-size:7px;font-weight:700;color:rgba(255,255,255,.8);">Fitness Assessment</div></div><div style="font-size:6px;padding:1px 5px;border-radius:8px;background:rgba(0,230,118,.15);color:#4dff9e;">9.2</div></div>
+              <div style="display:flex;align-items:center;gap:6px;padding:6px 7px;background:rgba(255,255,255,.04);border-radius:8px;"><div style="width:18px;height:18px;border-radius:5px;background:rgba(255,145,0,.15);display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;">📊</div><div style="flex:1;"><div style="font-size:7px;font-weight:700;color:rgba(255,255,255,.8);">Match Analytics</div></div><div style="font-size:6px;padding:1px 5px;border-radius:8px;background:rgba(255,145,0,.15);color:#ffb74d;">New</div></div>
+            </div>
+          </div>
+          <!-- real screenshot on top -->
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;"
+            src="images/scoutflix-home-feed.jpg"
+            alt="Scoutflix home feed" loading="lazy"
+            onerror="this.style.display='none'"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right phone: screenshot 3 with illustrated fallback -->
+    <div class="phone side-r">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <div style="flex:1;position:relative;overflow:hidden;background:#080d1c;">
+          <!-- illustrated fallback -->
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:9px;gap:4px;">
+            <div style="font-size:10px;font-weight:800;color:#fff;padding:0 1px 4px;">Scout Dashboard</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:2px;">
+              <div style="padding:7px;background:rgba(79,140,255,.08);border-radius:8px;border:1px solid rgba(79,140,255,.15);"><div style="font-size:6px;color:rgba(255,255,255,.3);">Tracked</div><div style="font-size:13px;font-weight:800;color:#fff;">47</div></div>
+              <div style="padding:7px;background:rgba(0,230,118,.06);border-radius:8px;border:1px solid rgba(0,230,118,.12);"><div style="font-size:6px;color:rgba(255,255,255,.3);">Shortlisted</div><div style="font-size:13px;font-weight:800;color:#fff;">12</div></div>
+            </div>
+            <div style="font-size:6px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.22);margin-bottom:2px;">Top Prospects</div>
+            <div style="padding:5px 7px;background:rgba(255,255,255,.04);border-radius:7px;display:flex;justify-content:space-between;"><span style="font-size:7px;font-weight:700;color:rgba(255,255,255,.8);">🏏 Arjun Sharma</span><span style="font-size:7px;color:var(--cyan);font-weight:700;">8.4★</span></div>
+            <div style="padding:5px 7px;background:rgba(255,255,255,.04);border-radius:7px;display:flex;justify-content:space-between;"><span style="font-size:7px;font-weight:700;color:rgba(255,255,255,.8);">🎯 Priya Nair</span><span style="font-size:7px;color:var(--cyan);font-weight:700;">8.1★</span></div>
+            <div style="padding:5px 7px;background:rgba(255,255,255,.04);border-radius:7px;display:flex;justify-content:space-between;"><span style="font-size:7px;font-weight:700;color:rgba(255,255,255,.8);">⚡ Rishi Patel</span><span style="font-size:7px;color:var(--cyan);font-weight:700;">7.9★</span></div>
+          </div>
+          <!-- real screenshot on top -->
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;"
+            src="images/scoutflix-performance-ratings.jpg"
+            alt="Scoutflix ratings screen" loading="lazy"
+            onerror="this.style.display='none'"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="fbdg top"><span class="fbn">Compose</span><span class="fbl">Fully Jetpack Compose</span></div>
+    <div class="fbdg bot">
+      <div class="fbrow"><div class="fbdot"></div><span style="font-size:.78rem;font-weight:700;">Texas, US · SportsTech</span></div>
+      <span class="fbl" style="margin-top:3px;display:block;">Cricket Scouting Platform</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ██ PROBLEM / SOLUTION ██ -->
+<section class="ps-sec" id="story">
+<div class="container">
+  <div style="margin-bottom:2.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>01 — The Challenge</span></div>
+  <div class="psgr rv d1">
+    <div class="pscard prob">
+      <div class="psic p">🏏</div>
+      <h3>The Problem</h3>
+      <p>Scouts lacked a modern mobile platform for athlete videos, ratings, and performance workflows. Existing scouting was manual, fragmented, and slow.</p>
+      <ul class="pslist">
+        <li>No centralised platform to track athlete progress over time</li>
+        <li>Video highlights scattered across WhatsApp and USB drives</li>
+        <li>No structured rating system for batting, bowling, and fitness</li>
+        <li>Coaches and parents had no real-time performance visibility</li>
+        <li>Draft day decisions made on gut feel, not structured data</li>
+      </ul>
+    </div>
+    <div class="pscard sol">
+      <div class="psic s">🎯</div>
+      <h3>The Solution</h3>
+      <p>I built Scoutflix as a Compose-first Android product for cricket scouting — video highlights, athlete ratings, and real-time coach workflows.</p>
+      <p>Solo Android ownership included architecture, ExoPlayer media integration, and <span class="hl">Firebase-backed delivery</span>.
+</p>
+      <ul class="pslist g">
+        <li>Athlete profiles with 360° performance ratings across 4 dimensions</li>
+        <li>Video highlight playback via ExoPlayer / Media3</li>
+        <li>Session planning and coach feedback tools</li>
+        <li>Paged athlete feed with scout shortlist and draft management</li>
+        <li>Real-time push notifications via Firebase Cloud Messaging</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ TIMELINE ██ -->
+<section class="tl-sec">
+<div class="container">
+  <div class="tlhdr rv">
+    <div>
+      <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>02 — How It Was Built</span>
+      <h2 class="st">Architecture first.<br>Then every feature.</h2>
+    </div>
+    <div class="tlhdr-r">Scoutflix was built with a modern, fully Compose-first approach — no legacy XML, no legacy architecture. Every layer was designed for the complexity of real-time media, large paginated datasets, and multi-role users (athlete, coach, scout).</div>
+  </div>
+  <div class="tlt rv d1">
+    <div class="tlline"></div>
+    <div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🏗️</div></div>
+        <div class="tlbody">
+          <div class="tlph">Phase 01 · Foundation</div>
+          <div class="tltit">Compose Architecture & Auth</div>
+          <div class="tldesc">Set up the full Jetpack Compose project with Hilt DI, Compose Navigation with type-safe routes, and MVVM + Repository pattern. Firebase Auth integration for multi-role sign-in — athlete, coach, and scout accounts each with different access levels.</div>
+          <div class="tltags"><span class="tltag">Jetpack Compose</span><span class="tltag">Hilt</span><span class="tltag">Navigation Compose</span><span class="tltag">Firebase Auth</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">👤</div></div>
+        <div class="tlbody">
+          <div class="tlph">Phase 02 · Athlete Profiles</div>
+          <div class="tltit">Performance Rating System & Athlete DNA</div>
+          <div class="tldesc">Built the core athlete profile system — multi-dimensional ratings for batting, bowling, fielding, fitness (strength/agility/speed/power/endurance), and mental attributes. Data persisted via Retrofit REST API and cached with DataStore Preferences for offline-first viewing.</div>
+          <div class="tltags"><span class="tltag">Retrofit</span><span class="tltag">DataStore</span><span class="tltag">Compose Charts</span><span class="tltag">Rating Bar</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🎬</div></div>
+        <div class="tlbody">
+          <div class="tlph">Phase 03 · Video</div>
+          <div class="tltit">Video Highlights with ExoPlayer / Media3</div>
+          <div class="tldesc">Integrated AndroidX Media3 ExoPlayer into the Compose UI for smooth in-feed video highlight playback. Handled adaptive streaming, buffer management, lifecycle-aware playback, and custom Compose player controls. Coil 3 used for video thumbnails and image loading.</div>
+          <div class="tltags"><span class="tltag">Media3 ExoPlayer</span><span class="tltag">Media3 UI</span><span class="tltag">Coil 3</span><span class="tltag">OkHttp</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">📄</div></div>
+        <div class="tlbody">
+          <div class="tlph">Phase 04 · Discovery</div>
+          <div class="tltit">Paged Athlete Feed & Scout Search</div>
+          <div class="tldesc">Built the paginated athlete discovery feed using Paging 3 + paging-compose. Scouts can filter by position, age, region, and rating. Shortlist management and draft-day report generation. Paging 3's LazyPagingItems integrated cleanly into Compose LazyColumn.</div>
+          <div class="tltags"><span class="tltag">Paging 3</span><span class="tltag">paging-compose</span><span class="tltag">LazyColumn</span><span class="tltag">Kotlinx Serialization</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">💬</div></div>
+        <div class="tlbody">
+          <div class="tlph">Phase 05 · Communication</div>
+          <div class="tltit">Coach Feedback, Session Planning & FCM Notifications</div>
+          <div class="tldesc">Built the coach-to-athlete feedback system, session planning screens, and parent visibility portal. Firebase Cloud Messaging (FCM) for real-time push notifications — session updates, rating changes, and scout interest alerts. Firebase Analytics and Crashlytics for production monitoring.</div>
+          <div class="tltags"><span class="tltag">Firebase FCM</span><span class="tltag">Firebase Analytics</span><span class="tltag">Firebase Crashlytics</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ FEATURES ██ -->
+<section class="feat-sec" id="features">
+<div class="container">
+  <div class="fhdr rv">
+    <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>03 — Features Built</span>
+    <h2 class="st">Every tool a cricket scout<br>actually needs.</h2>
+    <p class="sub">Built for coaches, scouts, athletes, and parents — each with their own view of the same data.</p>
+  </div>
+  <div class="fgrid rv d1">
+    <div class="fcard wide">
+      <div class="ficw">🎬</div>
+      <h3>Video Highlight Playback — Media3 ExoPlayer</h3>
+      <p><span class="hl">ExoPlayer</span> video feed in <span class="hl">Compose</span> for fast, polished playback.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🏏</div>
+      <h3>360° Athlete Rating System</h3>
+      <p><span class="hl">360° athlete ratings</span> in Compose charts for performance tracking.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🔍</div>
+      <h3>Paged Scout Discovery Feed</h3>
+      <p><span class="hl">Paging 3</span> athlete feed with filtering, shortlist, and draft-ready discovery.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">📋</div>
+      <h3>Session Planning & Feedback</h3>
+      <p>Structured session planning and coach feedback across roles.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">👨‍👩‍👧</div>
+      <h3>Multi-Role Access</h3>
+      <p>Role-based Android access for Athlete, Coach, and Scout users.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🔔</div>
+      <h3>Push Notifications (FCM)</h3>
+      <p>FCM push for real-time scouting alerts and updates.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">📊</div>
+      <h3>Performance Charts & Analytics</h3>
+      <p>Compose charts for rating trends and match performance.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🖼️</div>
+      <h3>Rich Media Loading — Coil 3</h3>
+      <p>Coil 3 media loading for athlete images and thumbnails.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">💾</div>
+      <h3>Offline-Capable with DataStore</h3>
+      <p>DataStore persistence for offline-ready profile data.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ REAL SCREENSHOTS ██ -->
+<section class="scr-sec">
+<div class="container">
+  <div class="scrhdr rv">
+    <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>04 — Real App Screenshots</span>
+    <h2 class="st">Inside the app — straight from the build.</h2>
+  </div>
+</div>
+<div style="padding-left:max(2.5rem,(100vw - 1160px)/2);">
+  <div class="scrwrap rv d1">
+
+    <div class="scrc" style="--rot:-2deg;">
+      <div class="scr-phone-wrap">
+        <div class="scr-phone-inner" style="position:relative;background:linear-gradient(135deg,#0e1628,#080d1c);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;opacity:.3;">
+            <span style="font-size:2rem;">🏏</span>
+            <span style="font-size:.65rem;color:#fff;letter-spacing:.1em;text-transform:uppercase;">Home Feed</span>
+          </div>
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;"
+            src="images/scoutflix-home-feed.jpg"
+            alt="Home Feed" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="scr-label">Home Feed</div>
+    </div>
+
+    <div class="scrc" style="--rot:1.5deg;margin-top:36px;">
+      <div class="scr-phone-wrap">
+        <div class="scr-phone-inner" style="position:relative;background:linear-gradient(135deg,#0e1628,#080d1c);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;opacity:.3;">
+            <span style="font-size:2rem;">👤</span>
+            <span style="font-size:.65rem;color:#fff;letter-spacing:.1em;text-transform:uppercase;">Athlete Profile</span>
+          </div>
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;"
+            src="images/scoutflix-athlete-profile.jpg"
+            alt="Athlete Profile" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="scr-label">Athlete Profile</div>
+    </div>
+
+    <div class="scrc" style="--rot:-1deg;margin-top:14px;">
+      <div class="scr-phone-wrap">
+        <div class="scr-phone-inner" style="position:relative;background:linear-gradient(135deg,#0e1628,#080d1c);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;opacity:.3;">
+            <span style="font-size:2rem;">📊</span>
+            <span style="font-size:.65rem;color:#fff;letter-spacing:.1em;text-transform:uppercase;">Ratings</span>
+          </div>
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;"
+            src="images/scoutflix-performance-ratings.jpg"
+            alt="Performance Ratings" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="scr-label">Performance Ratings</div>
+    </div>
+
+    <div class="scrc" style="--rot:2deg;margin-top:44px;">
+      <div class="scr-phone-wrap">
+        <div class="scr-phone-inner" style="position:relative;background:linear-gradient(135deg,#0e1628,#080d1c);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;opacity:.3;">
+            <span style="font-size:2rem;">🎬</span>
+            <span style="font-size:.65rem;color:#fff;letter-spacing:.1em;text-transform:uppercase;">Video</span>
+          </div>
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;"
+            src="images/scoutflix-video-highlights.jpg"
+            alt="Video Highlights" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="scr-label">Video Highlights</div>
+    </div>
+
+    <div class="scrc" style="--rot:-1.5deg;margin-top:22px;">
+      <div class="scr-phone-wrap">
+        <div class="scr-phone-inner" style="position:relative;background:linear-gradient(135deg,#0e1628,#080d1c);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;opacity:.3;">
+            <span style="font-size:2rem;">🔍</span>
+            <span style="font-size:.65rem;color:#fff;letter-spacing:.1em;text-transform:uppercase;">Scout</span>
+          </div>
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;"
+            src="images/scoutflix-scout-dashboard.jpg"
+            alt="Scout Dashboard" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="scr-label">Scout Dashboard</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ██ TECH STACK ██ -->
+<section class="tech-sec" id="tech">
+<div class="container">
+  <div style="margin-bottom:.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>05 — Stack & My Role</span></div>
+  <div class="techlyt">
+    <div class="rv">
+      <h2 class="st">Jetpack Compose.<br>Modern stack. No legacy.</h2>
+      <p class="sub" style="margin-bottom:2.3rem;">Built entirely with the 2025 Android stack — Compose-first, KSP, type-safe navigation, and version catalog dependency management.</p>
+      <div class="tg">
+        <div>
+          <div class="tgrp-lbl">UI & Architecture</div>
+          <div class="trow"><span class="tpill c">Jetpack Compose</span><span class="tpill c">Material 3</span><span class="tpill">MVVM</span><span class="tpill">Navigation Compose</span><span class="tpill">Lifecycle KTX</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">DI & Data</div>
+          <div class="trow"><span class="tpill c">Hilt (KSP)</span><span class="tpill c">DataStore</span><span class="tpill">Paging 3</span><span class="tpill">Kotlinx Serialization</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Media & Images</div>
+          <div class="trow"><span class="tpill c">Media3 ExoPlayer</span><span class="tpill c">Media3 UI</span><span class="tpill">Coil 3</span><span class="tpill">Coil SVG/Video</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Networking & Firebase</div>
+          <div class="trow"><span class="tpill">Retrofit 2</span><span class="tpill">OkHttp</span><span class="tpill">Firebase Auth</span><span class="tpill">FCM</span><span class="tpill">Crashlytics</span><span class="tpill">Analytics</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Charts & UI Extras</div>
+          <div class="trow"><span class="tpill">compose-charts</span><span class="tpill">compose-ratingbar</span><span class="tpill">AppCompat</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="rolestack rv d2">
+      <div class="roleitem"><span class="rolenum">01</span><div><h4>Architecture & Project Setup</h4><p>Designed the full Compose-first architecture from scratch — Hilt module graph, Navigation Compose with type-safe routes, and a scalable multi-module-ready structure.</p></div></div>
+      <div class="roleitem"><span class="rolenum">02</span><div><h4>Full Feature Development</h4><p>Every screen, every feature — athlete profiles, video feed, rating system, session planning, scout dashboard, and FCM notifications. Solo Android ownership.</p></div></div>
+      <div class="roleitem"><span class="rolenum">03</span><div><h4>Media Integration</h4><p>ExoPlayer / Media3 integration into the Compose lifecycle — the most technically complex part of the project, requiring custom Compose player wrappers and state management.</p></div></div>
+      <div class="roleitem"><span class="rolenum">04</span><div><h4>Delivery & Client Handoff</h4><p>App delivered as a production-grade App Bundle with full Play Console setup, Firebase project configuration, and technical documentation for the client's team.</p></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ METRICS ██ -->
+<section class="met-sec">
+<div class="container">
+  <div style="margin-bottom:2.2rem;" class="rv"><span class="tag"><span class="tag-dot"></span>06 — What Was Delivered</span></div>
+  <h2 class="st rv" style="margin-bottom:2.8rem;">A production-grade scouting<br>platform. From scratch.</h2>
+  <div class="metgrid rv d1">
+    <div class="metcell"><span class="metnum">5</span><span class="metlbl">Core Phases Delivered</span></div>
+    <div class="metcell"><span class="metnum">3</span><span class="metlbl">User Roles Built</span></div>
+    <div class="metcell"><span class="metnum">100%</span><span class="metlbl">Jetpack Compose UI</span></div>
+    <div class="metcell"><span class="metnum">Live</span><span class="metlbl">Scoutflix.com</span></div>
+  </div>
+  <div class="awdg rv d2">
+    <div class="awic">🏆</div>
+    <div class="awtxt">
+      <h4>Built for the Next Generation of Cricket Talent</h4>
+      <p>Scoutflix gives cricket academies and franchise scouts a tool that didn't exist for smaller organisations — structured, data-driven athlete development with video, ratings, and real-time communication. Built from scratch as a fully modern Jetpack Compose application and delivered as a production-ready product.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ CTA ██ -->
+<section class="cta-sec">
+<div class="container" style="position:relative;z-index:1;">
+  <span class="tag" style="margin-bottom:1.4rem;display:inline-flex;"><span class="tag-dot"></span>Let's build together</span>
+  <h2>Got an app idea?<br><span class="grad">Let's make it real.</span></h2>
+  <p>I build Android apps from scratch with Kotlin and Jetpack Compose — complex media, real-time data, and multi-role platforms welcome.</p>
+  <div class="ctabtns">
+    <a class="btn-p" href="https://www.scoutflix.com" target="_blank">Visit Scoutflix →</a>
+    <a class="btn-g" href="/cdn-cgi/l/email-protection#dcb1a9bda6e4eaeced9cbbb1bdb5b0f2bfb3b1">Get in Touch</a>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p>Scoutflix — Android Portfolio Case Study</p>
+  <p>Kotlin · Jetpack Compose · Media3 · Hilt · Paging 3 · Firebase · Coil 3 · Texas, US</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animC(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animC);})();
+document.querySelectorAll('a,button,[onclick]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='#00e5ff';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='#4f8cff';});
+});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.09});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

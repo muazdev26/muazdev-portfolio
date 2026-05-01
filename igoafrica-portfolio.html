@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iGo Africa — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+<link href="theme.css" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   PAGE-SPECIFIC — igoafrica-portfolio.html
+═══════════════════════════════════════════ */
+
+/* ── HERO accent override: warm green for AgriTech ── */
+:root {
+  --accent:  #22c55e;
+  --accent2: #16a34a;
+  --accent3: #bbf7d0;
+  --glow-accent: rgba(34,197,94,0.32);
+  --warm:    #f59e0b;
+}
+
+/* Re-tint shared blue atoms with the page accent */
+.nav-dot             { background: var(--accent); }
+@keyframes pulse     { 0%,100%{box-shadow:0 0 0 0 var(--glow-accent);}50%{box-shadow:0 0 0 6px transparent;} }
+.tag                 { background:rgba(34,197,94,0.1); border-color:rgba(34,197,94,0.22); color:var(--accent); }
+.tag-dot             { background:var(--accent); }
+.nav-cta             { background:var(--accent2); }
+.nav-cta:hover       { background:var(--accent); box-shadow:0 4px 20px var(--glow-accent); }
+.btn-p               { background:linear-gradient(135deg,var(--accent2),var(--accent)); box-shadow:0 4px 24px var(--glow-accent); }
+.btn-p:hover         { box-shadow:0 8px 32px var(--glow-accent); }
+.pglow               { background:radial-gradient(circle,rgba(34,197,94,0.18) 0%,transparent 70%); }
+.fbdg.top .fbn,
+.fbdg.bot .fbn       { color:var(--accent); }
+.grad                { background:linear-gradient(135deg,var(--accent) 0%,var(--warm) 100%); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.chip:hover          { border-color:var(--accent); color:var(--accent); }
+
+/* mesh accent shift */
+.mesh { background:
+  radial-gradient(ellipse 80% 60% at 10% 10%,rgba(34,197,94,0.1) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 50% at 90% 80%,rgba(245,158,11,0.07) 0%,transparent 55%),
+  radial-gradient(ellipse 50% 40% at 50% 50%,rgba(22,163,74,0.05) 0%,transparent 60%);
+}
+
+/* ── OFFLINE BANNER ─────────────────────── */
+.offline-banner {
+  display:flex; align-items:center; gap:.7rem;
+  padding:.6rem 1.1rem; border-radius:100px;
+  background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.25);
+  font-size:.75rem; font-weight:600; color:var(--warm);
+  letter-spacing:.04em; margin-bottom:1.4rem; width:fit-content;
+}
+.offline-banner svg { flex-shrink:0; }
+
+/* ── PROBLEM / SOLUTION ─────────────────── */
+.psgr{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.pscard{background:var(--bg2);padding:2.8rem;position:relative;overflow:hidden;}
+.pscard::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;pointer-events:none;}
+.pscard.prob::before{background:radial-gradient(circle,rgba(255,87,34,0.09) 0%,transparent 70%);}
+.pscard.sol::before{background:radial-gradient(circle,rgba(34,197,94,0.1) 0%,transparent 70%);}
+.psic{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.5rem;}
+.psic.p{background:rgba(255,87,34,0.12);border:1px solid rgba(255,87,34,0.2);}
+.psic.s{background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.2);}
+.pscard h3{font-weight:800;font-size:1.35rem;letter-spacing:-.02em;margin-bottom:.9rem;}
+.pscard p{font-size:.98rem;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:1rem;}
+.pslist{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-top:1.2rem;}
+.pslist li{display:flex;align-items:flex-start;gap:.65rem;font-size:.88rem;font-weight:300;color:var(--muted);}
+.pslist li::before{content:'×';color:#ff5722;font-weight:800;font-size:.88rem;flex-shrink:0;}
+.pslist.g li::before{content:'✓';color:var(--accent);}
+
+/* ── TIMELINE ───────────────────────────── */
+.tl-sec{padding:7rem 0;}
+.tlhdr{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4.5rem;}
+.tlhdr-r{color:var(--muted);font-size:.98rem;font-weight:300;line-height:1.75;}
+.tlt{position:relative;}
+.tlline{position:absolute;left:21px;top:22px;bottom:22px;width:1px;background:linear-gradient(to bottom,transparent,var(--border),var(--accent),var(--border),transparent);}
+.tlit{display:grid;grid-template-columns:52px 1fr;gap:1.8rem;padding:2rem 0;border-bottom:1px solid var(--border);}
+.tlit:last-child{border-bottom:none;}
+.tlnode{display:flex;flex-direction:column;align-items:center;}
+.tlcirc{width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;position:relative;z-index:1;transition:border-color .3s,box-shadow .3s;}
+.tlit.a .tlcirc{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,0.14),0 0 18px rgba(34,197,94,0.25);background:rgba(34,197,94,0.1);}
+.tlbody{padding-top:.5rem;}
+.tlph{font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem;}
+.tltit{font-weight:800;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:.45rem;}
+.tldesc{font-size:.96rem;font-weight:300;color:var(--muted);line-height:1.72;margin-bottom:1rem;}
+.tltags{display:flex;gap:.45rem;flex-wrap:wrap;}
+.tltag{font-size:.68rem;font-weight:600;letter-spacing:.04em;padding:.22rem .65rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+
+/* ── FEATURE GRID ───────────────────────── */
+.feat-sec{padding:7rem 0;}
+.fhdr{text-align:center;margin-bottom:3.5rem;}
+.fhdr .sub{margin:0 auto;}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.fcard{background:var(--bg2);padding:2.1rem;position:relative;overflow:hidden;transition:background .25s;}
+.fcard:hover{background:rgba(255,255,255,.032);}
+.fcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--glass) 0%,transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;}
+.fcard:hover::after{opacity:1;}
+.fcard.wide{grid-column:span 2;}
+.ficw{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.1rem;background:var(--surface);border:1px solid var(--border);transition:border-color .3s,box-shadow .3s;}
+.fcard:hover .ficw{border-color:rgba(34,197,94,.4);box-shadow:0 0 18px rgba(34,197,94,.14);}
+.fcard h3{font-weight:800;font-size:.98rem;letter-spacing:-.01em;margin-bottom:.45rem;}
+.fcard p{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.6;}
+
+/* ── SCREENSHOT GALLERY ─────────────────── */
+.screen-sec{padding:7rem 0;}
+.shdr{text-align:center;margin-bottom:3rem;}
+.screen-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;}
+.screen-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:transform .24s,box-shadow .24s;}
+.screen-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.08);}
+.screen-card a{display:grid;gap:.85rem;text-decoration:none;color:inherit;padding:1rem;}
+.screen-card img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:calc(var(--r2) - 1px);}
+.screen-card h3{font-size:1rem;font-weight:800;margin:0;}
+.screen-card p{margin:0;font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.65;}
+
+/* ── COLLAB SECTION ─────────────────────── */
+.collab-sec{padding:7rem 0;}
+.collab-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.collab-card{padding:1.4rem 1.6rem;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);display:flex;align-items:flex-start;gap:1rem;transition:border-color .2s,background .2s;margin-bottom:.8rem;}
+.collab-card:hover{border-color:var(--border2);background:var(--glass);}
+.collab-icon{width:42px;height:42px;border-radius:12px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.collab-card h4{font-weight:800;font-size:.92rem;margin-bottom:.2rem;}
+.collab-card p{font-size:.82rem;font-weight:300;color:var(--muted);}
+
+/* ── TECH STACK ─────────────────────────── */
+.tech-sec{padding:7rem 0;}
+.techlyt{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.tg{display:flex;flex-direction:column;gap:1.1rem;}
+.tgrp-lbl{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:.5rem;}
+.trow{display:flex;flex-wrap:wrap;gap:.45rem;}
+.tpill{font-size:.76rem;font-weight:700;letter-spacing:.04em;padding:.42rem 1rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);transition:all .22s;cursor:default;}
+.tpill:hover{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.38);color:var(--accent);}
+.tpill.c{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:var(--accent);}
+.rolestack{display:flex;flex-direction:column;gap:.9rem;}
+.roleitem{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start;padding:1.3rem;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);transition:border-color .2s,background .2s;}
+.roleitem:hover{border-color:var(--border2);background:var(--glass);}
+.rolenum{font-weight:900;font-size:1.7rem;color:rgba(34,197,94,.2);line-height:1;min-width:34px;text-align:right;}
+.roleitem h4{font-weight:800;font-size:.92rem;margin-bottom:.2rem;}
+.roleitem p{font-size:.82rem;font-weight:300;color:var(--muted);}
+
+/* ── METRICS ────────────────────────────── */
+.met-sec{padding:7rem 0;}
+.metgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:1.8rem;}
+.metcell{background:var(--bg2);padding:2.6rem 2rem;text-align:center;position:relative;overflow:hidden;transition:background .2s;}
+.metcell:hover{background:rgba(255,255,255,.03);}
+.metcell::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:120px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.09) 0%,transparent 70%);pointer-events:none;}
+.metnum{font-weight:900;font-size:clamp(2rem,2.8vw,2.9rem);letter-spacing:-.03em;background:linear-gradient(135deg,var(--accent) 0%,var(--warm) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;}
+.metlbl{font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.45rem;display:block;}
+.awdg{padding:1.9rem 2.3rem;background:linear-gradient(135deg,rgba(34,197,94,.07) 0%,rgba(245,158,11,.04) 100%);border:1px solid rgba(34,197,94,.2);border-radius:var(--r2);display:flex;align-items:center;gap:1.8rem;backdrop-filter:blur(12px);}
+.awic{font-size:2.2rem;width:60px;height:60px;border-radius:18px;flex-shrink:0;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.22);display:flex;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(34,197,94,.16);}
+.awtxt h4{font-weight:800;font-size:1.1rem;margin-bottom:.28rem;}
+.awtxt p{font-size:.88rem;font-weight:300;color:var(--muted);}
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media(max-width:960px){
+  .psgr{grid-template-columns:1fr;}
+  .tlhdr{grid-template-columns:1fr;gap:1.5rem;}
+  .fgrid{grid-template-columns:1fr 1fr;}
+  .fcard.wide{grid-column:span 2;}
+  .techlyt,.collab-grid{grid-template-columns:1fr;}
+  .metgrid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .fgrid{grid-template-columns:1fr;}
+  .fcard.wide{grid-column:span 1;}
+  .metgrid{grid-template-columns:1fr 1fr;}
+  .awdg{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+<div class="mesh"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html"><span class="nav-dot"></span>MuazDev</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#story">Story</a>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#tech">Stack</a>
+    <a class="nav-cta" href="https://goafricaglobal.com/4482-eppraf/" target="_blank">Read Press ↗</a>
+  </div>
+</nav>
+
+<!-- ██ HERO ██ -->
+<div style="position:relative;z-index:1;">
+<div class="hero rv">
+  <div>
+    <!-- Offline notice -->
+    <div class="offline-banner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Previously on Google Play · No longer available
+    </div>
+
+    <div style="margin-bottom:1.3rem;">
+      <span class="tag"><span class="tag-dot"></span>AgriTech · Android · Payments</span>
+    </div>
+    <h1 class="hero-headline">iGo<span class="grad">Africa</span><br>Farmers' Digital Market</h1>
+    <p class="sub" style="max-width:450px;margin-bottom:2.2rem;line-height:1.72;">
+      Android marketplace for Kenyan farmers with M-PESA and Flutterwave payments in a low-bandwidth UX.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-p" href="https://goafricaglobal.com/4482-eppraf/" target="_blank">Read Official Press Release →</a>
+      <a class="btn-g" href="#story">Read Case Study</a>
+    </div>
+    <div class="chips">
+      <span class="chip">Kotlin</span>
+      <span class="chip">Hilt DI</span>
+      <span class="chip">Retrofit</span>
+      <span class="chip">MVVM</span>
+      <span class="chip">Flutterwave</span>
+      <span class="chip">M-PESA</span>
+      <span class="chip">Google Sign-In</span>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="pglow"></div>
+
+    <!-- Side-left phone -->
+    <div class="phone side-l">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <img class="ps-img"
+          src="https://i0.wp.com/i-goafrica.com/wp-content/uploads/2024/01/indigenous-goafrica-limited-gradient.png?fit=2192%2C1494&ssl=1"
+          alt="iGoAfrica branding"
+          style="object-fit:contain;background:#0b1a10;padding:1rem;"
+          loading="lazy"/>
+      </div>
+    </div>
+
+    <!-- Main phone -->
+    <div class="phone main">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <!-- Illustrated app UI since real screenshots unavailable -->
+        <div style="flex:1;display:flex;flex-direction:column;background:#080f0a;overflow:hidden;">
+          <!-- App header -->
+          <div style="padding:10px 14px;background:linear-gradient(135deg,#0f2d14,#0a1f0d);border-bottom:1px solid rgba(34,197,94,0.12);">
+            <div style="font-size:13px;font-weight:800;color:#fff;">I-Go Lima</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.4);margin-top:1px;">Nairobi, Kenya · Good morning 🌾</div>
+          </div>
+          <!-- Hero banner -->
+          <div style="margin:8px;border-radius:10px;background:linear-gradient(135deg,rgba(34,197,94,.18),rgba(245,158,11,.12));border:1px solid rgba(34,197,94,.15);padding:12px;">
+            <div style="font-size:7px;text-transform:uppercase;letter-spacing:.1em;color:rgba(34,197,94,.7);">Featured Service</div>
+            <div style="font-size:12px;font-weight:800;color:#fff;margin-top:2px;">Rice Milling & Harvest</div>
+            <div style="font-size:7px;color:rgba(255,255,255,.4);margin-top:2px;">Victoria Grain · Bunyala Scheme</div>
+            <div style="margin-top:8px;background:var(--accent);border-radius:6px;padding:4px 8px;display:inline-block;font-size:7px;font-weight:700;color:#fff;">Book Now</div>
+          </div>
+          <!-- Service grid -->
+          <div style="padding:0 8px;display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:8px;">
+              <div style="font-size:11px;margin-bottom:3px;">🚜</div>
+              <div style="font-size:8px;font-weight:700;color:#fff;">Tractor Hire</div>
+              <div style="font-size:7px;color:rgba(255,255,255,.35);">From KES 2,500</div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:8px;">
+              <div style="font-size:11px;margin-bottom:3px;">🌾</div>
+              <div style="font-size:8px;font-weight:700;color:#fff;">Harvesting</div>
+              <div style="font-size:7px;color:rgba(255,255,255,.35);">Per acre rate</div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:8px;">
+              <div style="font-size:11px;margin-bottom:3px;">📦</div>
+              <div style="font-size:8px;font-weight:700;color:#fff;">Buy Rice</div>
+              <div style="font-size:7px;color:rgba(255,255,255,.35);">Victoria Grain</div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:8px;">
+              <div style="font-size:11px;margin-bottom:3px;">💳</div>
+              <div style="font-size:8px;font-weight:700;color:#fff;">M-PESA Pay</div>
+              <div style="font-size:7px;color:rgba(255,255,255,.35);">Instant payment</div>
+            </div>
+          </div>
+          <!-- Orders -->
+          <div style="padding:8px;">
+            <div style="font-size:6.5px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.22);margin-bottom:4px;">My Orders</div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:7px;">
+              <div style="width:20px;height:20px;border-radius:6px;background:rgba(34,197,94,.2);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;">🌾</div>
+              <div style="flex:1;"><div style="font-size:7.5px;font-weight:700;color:rgba(255,255,255,.8);">Milling Service #2241</div><div style="font-size:6.5px;color:rgba(255,255,255,.3);">50kg · Bunyala · Paid via M-PESA</div></div>
+              <div style="font-size:6px;font-weight:700;padding:2px 5px;border-radius:10px;background:rgba(34,197,94,.15);color:#4dff9e;flex-shrink:0;">Active</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side-right phone -->
+    <div class="phone side-r">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;background:#080f0a;overflow:hidden;">
+          <div style="padding:10px 14px;background:linear-gradient(135deg,#0f2d14,#0a1f0d);border-bottom:1px solid rgba(34,197,94,0.12);">
+            <div style="font-size:13px;font-weight:800;color:#fff;">Marketplace</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.4);margin-top:1px;">Browse services & products</div>
+          </div>
+          <div style="padding:9px;display:flex;flex-direction:column;gap:5px;">
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:9px;padding:8px 9px;">
+              <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,.75);">🚜 Tractor Service</div>
+              <div style="font-size:6.5px;color:rgba(255,255,255,.3);margin-top:1px;">CMC Kenya · 12 units available</div>
+              <div style="font-size:7px;color:var(--accent);font-weight:700;margin-top:3px;">KES 2,500 / acre</div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:9px;padding:8px 9px;">
+              <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,.75);">🌾 Rice Paddy Purchase</div>
+              <div style="font-size:6.5px;color:rgba(255,255,255,.3);margin-top:1px;">I-Go Africa · Victoria Grain</div>
+              <div style="font-size:7px;color:var(--accent);font-weight:700;margin-top:3px;">KES 65 / kg</div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:9px;padding:8px 9px;">
+              <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,.75);">⚙️ Milling Service</div>
+              <div style="font-size:6.5px;color:rgba(255,255,255,.3);margin-top:1px;">FEIL · Lake Agro · Bunyala</div>
+              <div style="font-size:7px;color:var(--accent);font-weight:700;margin-top:3px;">KES 8 / kg</div>
+            </div>
+            <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.15);border-radius:9px;padding:7px 9px;text-align:center;">
+              <div style="font-size:7px;font-weight:700;color:var(--accent);">Pay via M-PESA or Flutterwave</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.28);margin-top:1px;">Instant confirmation · Secure</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Float badges -->
+    <div class="fbdg top">
+      <span class="fbn">6 mo</span>
+      <span class="fbl">Fiverr Project</span>
+    </div>
+    <div class="fbdg bot">
+      <div class="fbrow">
+        <div class="fbdot" style="background:var(--warm);box-shadow:0 0 6px var(--warm);"></div>
+        <span style="font-size:.78rem;font-weight:700;">Previously on Google Play</span>
+      </div>
+      <span class="fbl" style="margin-top:3px;display:block;">Kenya · East Africa Launch</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ██ PROBLEM / SOLUTION ██ -->
+<section class="ps-sec" id="story">
+<div class="container">
+  <div style="margin-bottom:2.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>01 — The Challenge</span></div>
+  <div class="psgr rv d1">
+    <div class="pscard prob">
+      <div class="psic p">🌍</div>
+      <h3>The Problem</h3>
+      <p>Farmers had no mobile way to book tractors, milling, or payments. The value chain was largely analogue, slow, and disconnected.</p>
+      <ul class="pslist">
+        <li>No digital access to tractor, harvester, or milling services</li>
+        <li>Payments cash-only — slow, risky, and informal</li>
+        <li>No marketplace to buy or sell rice paddy at fair prices</li>
+        <li>Cooperative societies had no tech-enabled distribution channel</li>
+        <li>Farmers couldn't access Go Africa's services without physical presence</li>
+      </ul>
+    </div>
+    <div class="pscard sol">
+      <div class="psic s">🌱</div>
+      <h3>The Solution</h3>
+      <p>I built the Android marketplace and service-booking app that digitises booking, payments, and product discovery for rural farmers.</p>
+      <p>Sole Android engineer on a Fiverr-led delivery team, shipping a <span class="hl accent">production-ready</span> app in 6 months.</p>
+      <ul class="pslist g">
+        <li>Book tractor, harvester, and milling services from a phone</li>
+        <li>M-PESA and Flutterwave payment — instant, secure, inclusive</li>
+        <li>Marketplace to buy and sell rice paddy and processed grain</li>
+        <li>Google Sign-In for fast, frictionless farmer onboarding</li>
+        <li>Launched live on Google Play for Kenya & East Africa</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ TIMELINE ██ -->
+<section class="tl-sec">
+<div class="container">
+  <div class="tlhdr rv">
+    <div>
+      <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>02 — Timeline</span>
+      <h2 class="st">Zero to live in<br>six months.</h2>
+    </div>
+    <div class="tlhdr-r">This wasn't a solo project — it was a real team effort. I handled all Android development while collaborating daily with a backend developer building the API and a project manager coordinating with Go Africa's leadership in Nairobi.</div>
+  </div>
+  <div class="tlt rv d1">
+    <div class="tlline"></div>
+    <div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🤝</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 01 · Kickoff</div>
+          <div class="tltit">Discovery, Architecture & API Planning</div>
+          <div class="tldesc">Received the brief via Fiverr. Aligned with the backend developer on REST API contracts, data models, and authentication flow. Set up the Android project with Hilt DI, Navigation Component, and MVVM base.</div>
+          <div class="tltags"><span class="tltag">Hilt</span><span class="tltag">MVVM</span><span class="tltag">Navigation</span><span class="tltag">Retrofit</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🔐</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 02 · Auth & Onboarding</div>
+          <div class="tltit">User Registration, Login & Google Sign-In</div>
+          <div class="tldesc">Built full authentication — email/password registration, login, and one-tap Google Sign-In via Play Services Auth. Profile setup and onboarding flow tailored for low-tech farmers in rural Kenya.</div>
+          <div class="tltags"><span class="tltag">Google Sign-In</span><span class="tltag">Play Services Auth</span><span class="tltag">JWT / REST</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🛒</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 03 · Core Product</div>
+          <div class="tltit">Marketplace & Service Catalogue</div>
+          <div class="tldesc">Implemented the full product and service catalogue — browse tractor hire, milling services, rice paddy listings, and Go Africa's Victoria Grain products. Image loading with Coil and list pagination via Retrofit.</div>
+          <div class="tltags"><span class="tltag">Coil</span><span class="tltag">RecyclerView</span><span class="tltag">REST API</span><span class="tltag">ConstraintLayout</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">💳</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 04 · Payments</div>
+          <div class="tltit">M-PESA & Flutterwave Payment Integration</div>
+          <div class="tldesc">The most complex milestone. Integrated Flutterwave's Rave Android SDK for card and mobile money payments. M-PESA STK push via the backend. Handled payment callbacks, order confirmation, and failure recovery flows.</div>
+          <div class="tltags"><span class="tltag">Flutterwave Rave SDK</span><span class="tltag">M-PESA STK Push</span><span class="tltag">Webhook Handling</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">📋</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 05 · Orders & Profile</div>
+          <div class="tltit">Order Management, Booking History & Preferences</div>
+          <div class="tldesc">Built the full order lifecycle — booking creation, status tracking, history view, and cancellation flows. User profile, saved addresses, and notification preferences using AndroidX Preference.</div>
+          <div class="tltags"><span class="tltag">LiveData</span><span class="tltag">Coroutines</span><span class="tltag">Preference Library</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🚀</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 06 · Launch</div>
+          <div class="tltit">QA, Polish & Google Play Publication</div>
+          <div class="tldesc">End-to-end QA with the project manager and Go Africa's Kenya team. App submitted to Google Play, approved, and publicly launched — announced by Go Africa Global in their official press release on September 8, 2022.</div>
+          <div class="tltags"><span class="tltag">Play Console</span><span class="tltag">App Bundle</span><span class="tltag">QA Sign-Off</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ FEATURES ██ -->
+<section class="feat-sec" id="features">
+<div class="container">
+  <div class="fhdr rv">
+    <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>03 — Features Built</span>
+    <h2 class="st">A digital lifeline for<br>African farmers.</h2>
+    <p class="sub">Every screen was designed to work for first-time smartphone users in rural East Africa.</p>
+  </div>
+  <div class="fgrid rv d1">
+    <div class="fcard wide">
+      <div class="ficw">💳</div>
+      <h3>M-PESA & Flutterwave Payments</h3>
+      <p><span class="hl accent">Flutterwave + M-PESA</span> integration for instant mobile money payments trusted by millions of Kenyans.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🛒</div>
+      <h3>Service & Product Marketplace</h3>
+      <p>One unified screen for service bookings and product purchases.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🔐</div>
+      <h3>Google Sign-In & Auth</h3>
+      <p>One-tap Google Sign-In + email/password for low-bandwidth onboarding.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🚜</div>
+      <h3>Agricultural Service Booking</h3>
+      <p>Date and location-based booking for tractors and harvesters.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">📦</div>
+      <h3>Order Tracking & History</h3>
+      <p>Full order tracking from booking to delivery with receipts.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🌾</div>
+      <h3>Rice Paddy Buy & Sell</h3>
+      <p>Direct paddy sales and rice redistribution to local markets.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">⚙️</div>
+      <h3>User Profile & Preferences</h3>
+      <p>User profiles with location, preferences, and multi-language support.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">📡</div>
+      <h3>REST API Integration</h3>
+      <p>Retrofit REST backend with OkHttp logging and Coroutines.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🏛️</div>
+      <h3>Clean Architecture (MVVM + Hilt)</h3>
+      <p>Hilt DI + MVVM pattern for a clean, handoff-ready codebase.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ SCREENSHOTS ██ -->
+<section class="screen-sec">
+<div class="container">
+  <div class="shdr rv"><span class="tag"><span class="tag-dot"></span>04 — Screenshots</span><h2 class="st">What the app looked like in the field.</h2><p class="sub">Actual project screenshots from the I-Go Africa Android app, sourced from the original release assets.</p></div>
+  <div class="screen-grid rv d1">
+    <div class="screen-card">
+      <a href="images/igoafrica-screenshot-1.jpg" target="_blank" rel="noreferrer noopener">
+        <img src="images/igoafrica-screenshot-1.jpg" alt="iGo Africa screenshot 1">
+        <h3>Marketplace & Services</h3>
+        <p>Browse services, rice products, and book farm equipment directly from the app.</p>
+      </a>
+    </div>
+    <div class="screen-card">
+      <a href="images/igoafrica-screenshot-2.jpg" target="_blank" rel="noreferrer noopener">
+        <img src="images/igoafrica-screenshot-2.jpg" alt="iGo Africa screenshot 2">
+        <h3>Service Booking Flow</h3>
+        <p>Farmers select tractors, harvesters, milling options, and choose service details.</p>
+      </a>
+    </div>
+    <div class="screen-card">
+      <a href="images/igoafrica-screenshot-3.jpg" target="_blank" rel="noreferrer noopener">
+        <img src="images/igoafrica-screenshot-3.jpg" alt="iGo Africa screenshot 3">
+        <h3>Order History & Tracking</h3>
+        <p>Track booking statuses, recent orders, and payment confirmations in one place.</p>
+      </a>
+    </div>
+    <div class="screen-card">
+      <a href="images/igoafrica-screenshot-4.jpg" target="_blank" rel="noreferrer noopener">
+        <img src="images/igoafrica-screenshot-4.jpg" alt="iGo Africa screenshot 4">
+        <h3>Payments & Confirmation</h3>
+        <p>Payment and confirmation screens built for M-PESA and Flutterwave integration.</p>
+      </a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ COLLABORATION ██ -->
+<section class="collab-sec">
+<div class="container">
+  <div style="margin-bottom:.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>04 — Team & Collaboration</span></div>
+  <div class="collab-grid">
+    <div class="rv">
+      <h2 class="st">Built as a team. Owned as an engineer.</h2>
+      <p class="sub" style="margin-bottom:2rem;">This wasn't a solo freelance gig — it was a real cross-functional delivery. I joined a Fiverr-sourced team and owned Android end-to-end while collaborating with specialists on every other layer.</p>
+      <p style="font-size:.9rem;font-weight:300;color:var(--muted);line-height:1.75;">The project was announced publicly by Go Africa Global in a press release on September 8, 2022, and supported by major Kenyan institutions including Safaricom (M-PESA), the National Irrigation Authority, and Ecobank Kenya.</p>
+    </div>
+    <div class="rv d1">
+      <div class="collab-card">
+        <div class="collab-icon">👨‍💻</div>
+        <div><h4>Me — Android Developer</h4><p>End-to-end Android: architecture, all features, payment integration, Play Store submission. Sole Android engineer on the project.</p></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-icon">🗄️</div>
+        <div><h4>Backend Developer</h4><p>REST API design and implementation. Daily collaboration on endpoint contracts, auth tokens, and payment webhook handling.</p></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-icon">📋</div>
+        <div><h4>Project Manager</h4><p>Coordinated requirements between the Fiverr team and Go Africa's Kenya leadership. Managed QA sign-off and launch timeline.</p></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-icon">🌍</div>
+        <div><h4>Go Africa Global · Client</h4><p>Provided domain expertise, farmer feedback, and formal launch support. Connected via Fiverr, based in Nairobi, Kenya.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ TECH STACK ██ -->
+<section class="tech-sec" id="tech">
+<div class="container">
+  <div style="margin-bottom:.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>05 — Stack & My Role</span></div>
+  <div class="techlyt">
+    <div class="rv">
+      <h2 class="st">Native Android.<br>Africa-ready.</h2>
+      <p class="sub" style="margin-bottom:2.3rem;">Built for low-end devices, unreliable connections, and M-PESA — the real constraints of the East African market.</p>
+      <div class="tg">
+        <div>
+          <div class="tgrp-lbl">Language & Architecture</div>
+          <div class="trow"><span class="tpill c">Kotlin</span><span class="tpill c">MVVM</span><span class="tpill">Coroutines</span><span class="tpill">LiveData</span><span class="tpill">Navigation Component</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Dependency Injection & UI</div>
+          <div class="trow"><span class="tpill c">Hilt (Dagger)</span><span class="tpill">ConstraintLayout</span><span class="tpill">Material 3</span><span class="tpill">Coil</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Networking</div>
+          <div class="trow"><span class="tpill">Retrofit 2</span><span class="tpill">OkHttp</span><span class="tpill">Gson Converter</span><span class="tpill">Logging Interceptor</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Payments & Auth</div>
+          <div class="trow"><span class="tpill c">Flutterwave Rave SDK</span><span class="tpill c">M-PESA STK Push</span><span class="tpill">Google Sign-In</span><span class="tpill">Play Services Auth</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="rolestack rv d2">
+      <div class="roleitem"><span class="rolenum">01</span><div><h4>Android Architecture & Setup</h4><p>Designed the app architecture from scratch — Hilt DI, Navigation Graph, MVVM with Repository, and a scalable module structure ready for team handoff.</p></div></div>
+      <div class="roleitem"><span class="rolenum">02</span><div><h4>Full Feature Development</h4><p>Every screen, every flow, every API call — marketplace, auth, booking, order management, and both payment SDKs. Solo Android ownership.</p></div></div>
+      <div class="roleitem"><span class="rolenum">03</span><div><h4>Cross-Team Collaboration</h4><p>Daily sync with the backend developer on API contracts. Worked closely with the PM to translate Go Africa's requirements into mobile features.</p></div></div>
+      <div class="roleitem"><span class="rolenum">04</span><div><h4>Play Store Launch</h4><p>Managed the full submission, review, and approval process. App went live and was publicly announced by Go Africa Global in September 2022.</p></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ METRICS ██ -->
+<section class="met-sec">
+<div class="container">
+  <div style="margin-bottom:2.2rem;" class="rv"><span class="tag"><span class="tag-dot"></span>06 — Impact & Outcome</span></div>
+  <h2 class="st rv" style="margin-bottom:2.8rem;">From Fiverr brief to<br>publicly announced launch.</h2>
+  <div class="metgrid rv d1">
+    <div class="metcell"><span class="metnum">6</span><span class="metlbl">Months to Live</span></div>
+    <div class="metcell"><span class="metnum">3</span><span class="metlbl">Team Members</span></div>
+    <div class="metcell"><span class="metnum">2</span><span class="metlbl">Payment Gateways</span></div>
+    <div class="metcell"><span class="metnum">KE</span><span class="metlbl">Kenya · East Africa</span></div>
+  </div>
+  <div class="awdg rv d2">
+    <div class="awic">📰</div>
+    <div class="awtxt">
+      <h4>Officially Announced by Go Africa Global — September 2022</h4>
+      <p>The app launched publicly and was covered in a formal press release by Go Africa Global, citing partnerships with Safaricom, National Irrigation Authority, and Ecobank Kenya. The app has since been retired from the Play Store, but the project represented a meaningful step in digitising East Africa's agricultural value chain.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ CTA ██ -->
+<section class="cta-sec">
+<div class="container" style="position:relative;z-index:1;">
+  <span class="tag" style="margin-bottom:1.4rem;display:inline-flex;"><span class="tag-dot"></span>Let's build together</span>
+  <h2>Got an idea?<br><span class="grad">Let's ship it.</span></h2>
+  <p>I build Android apps from scratch — marketplaces, payment integrations, cross-functional teams. Fiverr and direct clients welcome.</p>
+  <div class="ctabtns">
+    <a class="btn-p" href="https://goafricaglobal.com/4482-eppraf/" target="_blank">Read the Press Release →</a>
+    <a class="btn-g" href="mailto:muaz8601@gmail.com">Get in Touch</a>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p>iGo Africa (I-Go Lima) — Android Portfolio Case Study</p>
+  <p>Kotlin · Hilt · Retrofit · Flutterwave · M-PESA · Google Sign-In · Kenya 2022</p>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animC(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animC);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='#22c55e';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='#22c55e';});
+});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.09});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.querySelector('.mesh').style.transform=`translateY(${window.scrollY*.14}px)`;});
+</script>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToddTransit — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+<link href="theme.css" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   PAGE-SPECIFIC STYLES — toddtransit-portfolio
+   Everything in theme.css is NOT repeated here
+═══════════════════════════════════════════ */
+
+/* ── HERO accent override: green for delivery ops ── */
+:root {
+  --accent:  #22c55e;
+  --accent2: #16a34a;
+  --accent3: #bbf7d0;
+  --glow-accent: rgba(34,197,94,0.32);
+  --warm:    #f59e0b;
+}
+
+/* Re-tint shared blue atoms with the page accent */
+.nav-dot             { background: var(--accent); }
+@keyframes pulse     { 0%,100%{box-shadow:0 0 0 0 var(--glow-accent);}50%{box-shadow:0 0 0 6px transparent;} }
+.tag                 { background:rgba(34,197,94,0.1); border-color:rgba(34,197,94,0.22); color:var(--accent); }
+.tag-dot             { background:var(--accent); }
+.nav-cta             { background:var(--accent2); }
+.nav-cta:hover       { background:var(--accent); box-shadow:0 4px 20px var(--glow-accent); }
+.btn-p               { background:linear-gradient(135deg,var(--accent2),var(--accent)); box-shadow:0 4px 24px var(--glow-accent); }
+.btn-p:hover         { box-shadow:0 8px 32px var(--glow-accent); }
+.pglow               { background:radial-gradient(circle,rgba(34,197,94,0.18) 0%,transparent 70%); }
+.fbdg.top .fbn,
+.fbdg.bot .fbn       { color:var(--accent); }
+.grad                { background:linear-gradient(135deg,var(--accent) 0%,var(--warm) 100%); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.chip:hover          { border-color:var(--accent); color:var(--accent); }
+
+/* mesh accent shift */
+.mesh { background:
+  radial-gradient(ellipse 80% 60% at 10% 10%,rgba(34,197,94,0.1) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 50% at 90% 80%,rgba(245,158,11,0.07) 0%,transparent 55%),
+  radial-gradient(ellipse 50% 40% at 50% 50%,rgba(22,163,74,0.05) 0%,transparent 60%);
+}
+
+/* ── PROBLEM / SOLUTION ─────────────────── */
+.psgr{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.pscard{background:var(--bg2);padding:2.8rem;position:relative;overflow:hidden;}
+.pscard::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;pointer-events:none;}
+.pscard.prob::before{background:radial-gradient(circle,rgba(255,87,34,0.09) 0%,transparent 70%);}
+.pscard.sol::before{background:radial-gradient(circle,rgba(79,140,255,0.11) 0%,transparent 70%);}
+.psic{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.5rem;}
+.psic.p{background:rgba(255,87,34,0.12);border:1px solid rgba(255,87,34,0.2);}
+.psic.s{background:rgba(79,140,255,0.12);border:1px solid rgba(79,140,255,0.2);}
+.pscard h3{font-weight:800;font-size:1.35rem;letter-spacing:-.02em;margin-bottom:.9rem;}
+.pscard p{font-size:.98rem;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:1rem;}
+.pslist{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-top:1.2rem;}
+.pslist li{display:flex;align-items:flex-start;gap:.65rem;font-size:.88rem;font-weight:300;color:var(--muted);}
+.pslist li::before{content:'×';color:#ff5722;font-weight:800;font-size:.88rem;flex-shrink:0;}
+.pslist.g li::before{content:'✓';color:var(--blue);}
+
+/* ── TIMELINE ───────────────────────────── */
+.tl-sec{padding:7rem 0;}
+.tlhdr{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4.5rem;}
+.tlhdr-r{color:var(--muted);font-size:.98rem;font-weight:300;line-height:1.75;}
+.tlt{position:relative;}
+.tlline{position:absolute;left:21px;top:22px;bottom:22px;width:1px;background:linear-gradient(to bottom,transparent,var(--border),var(--accent),var(--border),transparent);}
+.tlit{display:grid;grid-template-columns:52px 1fr;gap:1.8rem;padding:2rem 0;border-bottom:1px solid var(--border);}
+.tlit:last-child{border-bottom:none;}
+.tlnode{display:flex;flex-direction:column;align-items:center;}
+.tlcirc{width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;position:relative;z-index:1;transition:border-color .3s,box-shadow .3s;}
+.tlit.a .tlcirc{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,0.14),0 0 18px rgba(34,197,94,0.25);background:rgba(34,197,94,0.1);}
+.tlbody{padding-top:.5rem;}
+.tlph{font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem;}
+.tltit{font-weight:800;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:.45rem;}
+.tldesc{font-size:.96rem;font-weight:300;color:var(--muted);line-height:1.72;margin-bottom:1rem;}
+.tltags{display:flex;gap:.45rem;flex-wrap:wrap;}
+.tltag{font-size:.68rem;font-weight:600;letter-spacing:.04em;padding:.22rem .65rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+
+/* ── FEATURE GRID ───────────────────────── */
+.feat-sec{padding:7rem 0;}
+.fhdr{text-align:center;margin-bottom:3.5rem;}
+.fhdr .sub{margin:0 auto;}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.fcard{background:var(--bg2);padding:2.1rem;position:relative;overflow:hidden;transition:background .25s;}
+.fcard:hover{background:rgba(255,255,255,.032);}
+.fcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--glass) 0%,transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;}
+.fcard:hover::after{opacity:1;}
+.fcard.wide{grid-column:span 2;}
+.ficw{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.1rem;background:var(--surface);border:1px solid var(--border);transition:border-color .3s,box-shadow .3s;}
+.fcard:hover .ficw{border-color:rgba(34,197,94,.4);box-shadow:0 0 18px rgba(34,197,94,.14);}
+.fcard h3{font-weight:800;font-size:.98rem;letter-spacing:-.01em;margin-bottom:.45rem;}
+.fcard p{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.6;}
+
+/* ── COLLAB SECTION ─────────────────────── */
+.collab-sec{padding:7rem 0;}
+.collab-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.collab-card{padding:1.4rem 1.6rem;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);display:flex;align-items:flex-start;gap:1rem;transition:border-color .2s,background .2s;margin-bottom:.8rem;}
+.collab-card:hover{border-color:var(--border2);background:var(--glass);}
+.collab-icon{width:42px;height:42px;border-radius:12px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.collab-card h4{font-weight:800;font-size:.92rem;margin-bottom:.2rem;}
+.collab-card p{font-size:.82rem;font-weight:300;color:var(--muted);}
+
+/* ── TECH STACK ─────────────────────────── */
+.tech-sec{padding:7rem 0;}
+.techlyt{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.tg{display:flex;flex-direction:column;gap:1.1rem;}
+.tgrp-lbl{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:.5rem;}
+.trow{display:flex;flex-wrap:wrap;gap:.45rem;}
+.tpill{font-size:.76rem;font-weight:700;letter-spacing:.04em;padding:.42rem 1rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);transition:all .22s;cursor:default;}
+.tpill:hover{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.38);color:var(--accent);}
+.tpill.c{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:var(--accent);}
+.rolestack{display:flex;flex-direction:column;gap:.9rem;}
+.roleitem{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start;padding:1.3rem;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);transition:border-color .2s,background .2s;}
+.roleitem:hover{border-color:var(--border2);background:var(--glass);}
+.rolenum{font-weight:900;font-size:1.7rem;color:rgba(34,197,94,.2);line-height:1;min-width:34px;text-align:right;}
+.roleitem h4{font-weight:800;font-size:.92rem;margin-bottom:.2rem;}
+.roleitem p{font-size:.82rem;font-weight:300;color:var(--muted);}
+
+/* ── METRICS ────────────────────────────── */
+.met-sec{padding:7rem 0;}
+.metgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:1.8rem;}
+.metcell{background:var(--bg2);padding:2.6rem 2rem;text-align:center;position:relative;overflow:hidden;transition:background .2s;}
+.metcell:hover{background:rgba(255,255,255,.03);}
+.metcell::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:120px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.09) 0%,transparent 70%);pointer-events:none;}
+.metnum{font-weight:900;font-size:clamp(2rem,2.8vw,2.9rem);letter-spacing:-.03em;background:linear-gradient(135deg,var(--accent) 0%,var(--warm) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;}
+.metlbl{font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.45rem;display:block;}
+.awdg{padding:1.9rem 2.3rem;background:linear-gradient(135deg,rgba(34,197,94,.07) 0%,rgba(245,158,11,.04) 100%);border:1px solid rgba(34,197,94,.2);border-radius:var(--r2);display:flex;align-items:center;gap:1.8rem;backdrop-filter:blur(12px);}
+.awic{font-size:2.2rem;width:60px;height:60px;border-radius:18px;flex-shrink:0;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.22);display:flex;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(34,197,94,.16);}
+.awtxt h4{font-weight:800;font-size:1.1rem;margin-bottom:.28rem;}
+.awtxt p{font-size:.88rem;font-weight:300;color:var(--muted);}
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media(max-width:960px){
+  .psgr{grid-template-columns:1fr;}
+  .tlhdr{grid-template-columns:1fr;gap:1.5rem;}
+  .fgrid{grid-template-columns:1fr 1fr;}
+  .fcard.wide{grid-column:span 2;}
+  .techlyt{grid-template-columns:1fr;}
+  .metgrid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .fgrid{grid-template-columns:1fr;}
+  .fcard.wide{grid-column:span 1;}
+  .metgrid{grid-template-columns:1fr 1fr;}
+  .awdg{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+<div class="mesh"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html"><span class="nav-dot"></span>MuazDev</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#story">Story</a>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#tech">Stack</a>
+    <a class="nav-cta" href="https://toddtransit.com/" target="_blank">Visit ToddTransit ↗</a>
+  </div>
+</nav>
+
+<!-- ██ HERO ██ -->
+<div style="position:relative;z-index:1;">
+<div class="hero rv">
+  <div>
+    <div style="margin-bottom:1.3rem;">
+      <span class="tag"><span class="tag-dot"></span>Delivery Ops · Android App</span>
+    </div>
+    <h1 class="hero-headline">Todd<span class="grad">Transit</span><br>Driver Delivery Capture</h1>
+    <p class="sub" style="max-width:450px;margin-bottom:2.2rem;line-height:1.72;">A native Android delivery capture app for drivers, with photo proof, signatures, offline sync, and private Play distribution.</p>
+    <div class="hero-actions">
+      <a class="btn-p" href="https://toddtransit.com/" target="_blank">Visit ToddTransit →</a>
+      <a class="btn-g" href="#story">Read Case Study</a>
+    </div>
+    <div class="chips">
+      <span class="chip">Kotlin</span>
+      <span class="chip">Hilt</span>
+      <span class="chip">Retrofit</span>
+      <span class="chip">Coil</span>
+      <span class="chip">Signature View</span>
+      <span class="chip">ImagePicker</span>
+      <span class="chip">Preference</span>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="pglow"></div>
+
+    <div class="phone side-l">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;background:#080d1c;overflow:hidden;">
+          <div style="padding:12px 14px;background:linear-gradient(135deg,#102a4a,#08121b);border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="font-size:12px;font-weight:800;color:#fff;">Delivery Details</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.45);margin-top:2px;">Route update · 8 stops left</div>
+          </div>
+          <div style="padding:14px;display:grid;gap:10px;">
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;">
+              <div style="font-size:9px;color:rgba(255,255,255,.7);">Pickup</div>
+              <div style="font-size:12px;font-weight:700;color:#fff;margin-top:4px;">Warehouse A</div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;">
+              <div style="font-size:9px;color:rgba(255,255,255,.7);">ETA</div>
+              <div style="font-size:12px;font-weight:700;color:#fff;margin-top:4px;">16:20</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone main">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;background:#08101b;overflow:hidden;">
+          <div style="padding:12px 14px;background:linear-gradient(135deg,#0e2d59,#081026);border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="font-size:12px;font-weight:800;color:#fff;">Proof of Delivery</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.45);margin-top:2px;">Multiple images accepted</div>
+          </div>
+          <div style="padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="height:78px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);font-size:8px;">Photo 1</div>
+            <div style="height:78px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);font-size:8px;">Photo 2</div>
+            <div style="height:78px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);font-size:8px;">Photo 3</div>
+            <div style="height:78px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);font-size:8px;">Compress</div>
+          </div>
+          <div style="margin:10px 14px 0;padding:12px;border-radius:16px;background:rgba(34,126,255,.08);border:1px solid rgba(79,140,255,.18);color:#d8ecff;font-size:9px;">On-device image compression keeps uploads fast even on low bandwidth.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone side-r">
+      <div class="ps">
+        <div class="psb"><span class="psb-t">9:41</span><span>●●●</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;background:#08101b;overflow:hidden;">
+          <div style="padding:12px 14px;background:linear-gradient(135deg,#102c4e,#081023);border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="font-size:12px;font-weight:800;color:#fff;">Signature</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.45);margin-top:2px;">Digital handoff confirmation</div>
+          </div>
+          <div style="flex:1;padding:12px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="flex:1;border-radius:18px;border:1px dashed rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);font-size:9px;">Sign here</div>
+            <div style="margin-top:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:10px;font-size:8px;color:rgba(255,255,255,.6);">Recipient name, delivered items, notes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fbdg top"><span class="fbn">Internal</span><span class="fbl">Play Store Distribution</span></div>
+    <div class="fbdg bot">
+      <div class="fbrow"><div class="fbdot"></div><span style="font-size:.78rem;font-weight:700;">Driver-first delivery capture</span></div>
+      <span class="fbl" style="margin-top:3px;display:block;">Slack, Jira, Toggl collaboration</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ██ PROBLEM / SOLUTION ██ -->
+<section class="ps-sec" id="story">
+<div class="container">
+  <div style="margin-bottom:2.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>01 — The Challenge</span></div>
+  <div class="psgr rv d1">
+    <div class="pscard prob">
+      <div class="psic p">🚚</div>
+      <h3>The Problem</h3>
+      <p>Drivers were stuck on paper, chat, and spreadsheets. The fleet needed a single Android app to capture delivery proof and speed routes.</p>
+      <ul class="pslist">
+        <li>No single app for route details, photos, and proof of delivery</li>
+        <li>Multiple image attachments were cumbersome and slow</li>
+        <li>Signature capture was manual or missed entirely</li>
+        <li>Delivery reports were hard to validate after the shift</li>
+        <li>Internal rollouts demanded secure distribution, not public release</li>
+      </ul>
+    </div>
+    <div class="pscard sol">
+      <div class="psic s">📱</div>
+      <h3>The Solution</h3>
+      <p>I built the <span class="hl accent">delivery capture</span> Android app from scratch — photos, signatures, sync, and internal Play deployment.</p>
+      <p>Built with a small operations team and shipped for fleet rollout.</p>
+      <ul class="pslist g">
+        <li>Multiple delivery photos per stop with on-device compression</li>
+        <li>Digital signature capture and delivery confirmation on the phone</li>
+        <li>Offline-capable form flows with fast sync via Retrofit</li>
+        <li>Internal Play Store distribution for secure driver rollout</li>
+        <li>Driver workflow built for speed and low-bandwidth regions</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ TIMELINE ██ -->
+<section class="tl-sec">
+<div class="container">
+  <div class="tlhdr rv">
+    <div>
+      <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>02 — Timeline</span>
+      <h2 class="st">Six months to internal delivery operations.</h2>
+    </div>
+    <div class="tlhdr-r">Built from kickoff to internal roll-out with rapid validation cycles. Every milestone focused on making the drover workflow faster, more reliable, and easy to use across mixed mobile devices.</div>
+  </div>
+  <div class="tlt rv d1">
+    <div class="tlline"></div>
+    <div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🧭</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 01 · Kickoff</div>
+          <div class="tltit">Mobile architecture & route model</div>
+          <div class="tldesc">Defined the Android architecture, API contracts, and offline delivery model. Set up Hilt, Navigation, MVVM, Retrofit, and local sync strategy with clear team ownership.</div>
+          <div class="tltags"><span class="tltag">Hilt</span><span class="tltag">MVVM</span><span class="tltag">Navigation</span><span class="tltag">Retrofit</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">📷</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 02 · Photo Flow</div>
+          <div class="tltit">Multiple images & compression</div>
+          <div class="tldesc">Built the image capture workflow using ImagePicker and locally compressed photos before upload. Drivers can attach multiple delivery images without waiting for large uploads.</div>
+          <div class="tltags"><span class="tltag">ImagePicker</span><span class="tltag">Compression</span><span class="tltag">Coil</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">✍️</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 03 · Proof</div>
+          <div class="tltit">Signature & delivery confirmation</div>
+          <div class="tldesc">Integrated signature capture and delivered proof screens. Each drop included recipient details, notes, and a timestamped signature for audit-ready delivery records.</div>
+          <div class="tltags"><span class="tltag">Signature View</span><span class="tltag">UX</span><span class="tltag">Delivery Proof</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🔧</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 04 · Sync</div>
+          <div class="tltit">Backend integration & retry</div>
+          <div class="tldesc">Connected the app to ToddTransit’s backend API via Retrofit and Gson. Added retry-safe delivery sync, error handling, and upload logging for photo-heavy routes.</div>
+          <div class="tltags"><span class="tltag">Retrofit</span><span class="tltag">Gson</span><span class="tltag">OkHttp</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🧪</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 05 · QA</div>
+          <div class="tltit">Tester validation & internal feedback</div>
+          <div class="tldesc">Worked with the tester on route scenarios, capture edge cases, and resilience on weak networks. Feedback cycles were managed through Jira and Slack.</div>
+          <div class="tltags"><span class="tltag">Jira</span><span class="tltag">Slack</span><span class="tltag">QA</span></div>
+        </div>
+      </div>
+      <div class="tlit a">
+        <div class="tlnode"><div class="tlcirc">🚀</div></div>
+        <div class="tlbody">
+          <div class="tlph">Month 06 · Rollout</div>
+          <div class="tltit">Internal Play Store distribution</div>
+          <div class="tldesc">Deployed the app to ToddTransit’s private internal Play Store track for driver rollout. Ongoing support used Toggl Track to measure delivery sprint time and team velocity.</div>
+          <div class="tltags"><span class="tltag">Internal Release</span><span class="tltag">Toggl</span><span class="tltag">Play Store</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ FEATURES ██ -->
+<section class="feat-sec" id="features">
+<div class="container">
+  <div class="fhdr rv">
+    <span class="tag" style="margin-bottom:1rem;display:inline-flex;"><span class="tag-dot"></span>03 — Features Built</span>
+    <h2 class="st">Everything a drover needs to capture the delivery.</h2>
+    <p class="sub">Designed for fast route completion, accurate proof of delivery, and low-bandwidth fleet operations.</p>
+  </div>
+  <div class="fgrid rv d1">
+    <div class="fcard wide">
+      <div class="ficw">📸</div>
+      <h3>Multiple Photo Capture</h3>
+      <p>Multi-image delivery capture for dispute-proof proof of delivery.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">⚡</div>
+      <h3>On-device Compression</h3>
+      <p>On-device image compression keeps uploads fast on weak networks.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">✍️</div>
+      <h3>Signature Proof</h3>
+      <p>Signature capture stored with delivery metadata for audit-ready proof.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">📝</div>
+      <h3>Delivery Form Workflow</h3>
+      <p>Single-screen delivery forms for fast driver workflows.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">📶</div>
+      <h3>Offline-capable Sync</h3>
+      <p>Offline caching and sync so drivers keep moving even when coverage drops.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🔌</div>
+      <h3>REST API Integration</h3>
+      <p>Retrofit sync with logging interceptors for reliable delivery data.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🏗️</div>
+      <h3>Clean Android Architecture</h3>
+      <p>Hilt, Navigation, and ViewModel architecture for fast iteration.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🤝</div>
+      <h3>Team Workflow</h3>
+      <p>Small team delivery via Slack, Jira, and Toggl.</p>
+    </div>
+    <div class="fcard">
+      <div class="ficw">🔒</div>
+      <h3>Private Play Store</h3>
+      <p>Private Play deployment for secure fleet rollout.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ COLLABORATION ██ -->
+<section class="collab-sec">
+<div class="container">
+  <div style="margin-bottom:.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>04 — Team & Collaboration</span></div>
+  <div class="collab-grid">
+    <div class="rv">
+      <h2 class="st">Built with a delivery operations team.</h2>
+      <p class="sub" style="margin-bottom:2rem;">This was a real internal rollout, not a public app launch. I built the Android product while the team handled backend, operations, and testing across a live delivery fleet.</p>
+      <p style="font-size:.9rem;font-weight:300;color:var(--muted);line-height:1.75;">The project used Slack for daily communication, Jira for issue tracking, and Toggl Track to log development time and delivery milestones.</p>
+    </div>
+    <div class="rv d1">
+      <div class="collab-card">
+        <div class="collab-icon">👨‍💻</div>
+        <div><h4>Me — Android Developer</h4><p>Built the app from scratch: architecture, image capture, signature flows, offline sync, and internal Play Store distribution.</p></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-icon">🗄️</div>
+        <div><h4>Backend Developer</h4><p>Delivered the REST API, file upload endpoints, and sync contract used by the app for delivery records and route status.</p></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-icon">🧪</div>
+        <div><h4>Tester</h4><p>Validated delivery flows, offline handoffs, image uploads, and signature capture before internal distribution.</p></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-icon">📋</div>
+        <div><h4>Manager</h4><p>Shaped requirements, prioritized drover workflows, and coordinated the internal rollout with the ToddTransit operations team.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ TECH STACK ██ -->
+<section class="tech-sec" id="tech">
+<div class="container">
+  <div style="margin-bottom:.4rem;" class="rv"><span class="tag"><span class="tag-dot"></span>05 — Stack & My Role</span></div>
+  <div class="techlyt">
+    <div class="rv">
+      <h2 class="st">Native Android for delivery teams.</h2>
+      <p class="sub" style="margin-bottom:2.3rem;">Built for drovers, low-bandwidth regions, and secure internal distribution via Google Play.</p>
+      <div class="tg">
+        <div>
+          <div class="tgrp-lbl">Core Android</div>
+          <div class="trow"><span class="tpill c">Kotlin</span><span class="tpill c">MVVM</span><span class="tpill">LiveData</span><span class="tpill">Navigation</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Networking</div>
+          <div class="trow"><span class="tpill">Retrofit</span><span class="tpill">Gson</span><span class="tpill">OkHttp</span><span class="tpill">Logging Interceptor</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Media & UI</div>
+          <div class="trow"><span class="tpill c">Coil</span><span class="tpill">ImagePicker</span><span class="tpill">Signature View</span><span class="tpill">AndroidX</span></div>
+        </div>
+        <div>
+          <div class="tgrp-lbl">Infra & Delivery</div>
+          <div class="trow"><span class="tpill">Hilt</span><span class="tpill">Preference</span><span class="tpill">SDP / SSP</span><span class="tpill">Internal Release</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="rolestack rv d2">
+      <div class="roleitem"><span class="rolenum">01</span><div><h4>Full Android Ownership</h4><p>Designed and shipped every mobile feature for the drover workflow — from route details to final signature capture.</p></div></div>
+      <div class="roleitem"><span class="rolenum">02</span><div><h4>Performance & Media</h4><p>Implemented efficient multi-image capture with compression so photo evidence could move across weak networks.</p></div></div>
+      <div class="roleitem"><span class="rolenum">03</span><div><h4>Team Delivery</h4><p>Partnered closely with the backend developer, tester, and manager to align app behavior with operations requirements.</p></div></div>
+      <div class="roleitem"><span class="rolenum">04</span><div><h4>Internal Launch</h4><p>Managed the private Play Store deployment and ensured the app was stable for a controlled fleet rollout.</p></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ METRICS ██ -->
+<section class="met-sec">
+<div class="container">
+  <div style="margin-bottom:2.2rem;" class="rv"><span class="tag"><span class="tag-dot"></span>06 — Impact & Outcome</span></div>
+  <h2 class="st rv" style="margin-bottom:2.8rem;">Built for drovers, deployed securely, and ready for fleet scale.</h2>
+  <div class="metgrid rv d1">
+    <div class="metcell"><span class="metnum">6</span><span class="metlbl">Months to Internal Rollout</span></div>
+    <div class="metcell"><span class="metnum">3</span><span class="metlbl">Core Team Members</span></div>
+    <div class="metcell"><span class="metnum">5+</span><span class="metlbl">Images per Delivery</span></div>
+    <div class="metcell"><span class="metnum">INT</span><span class="metlbl">Internal Play Store</span></div>
+  </div>
+  <div class="awdg rv d2">
+    <div class="awic">📦</div>
+    <div class="awtxt">
+      <h4>Delivered for ToddTransit’s internal fleet.</h4>
+      <p>The app launched as a private distribution build through Google Play, enabling ToddTransit drivers to capture delivery evidence, photo attachments, and signatures securely on their mobile devices.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ██ CTA ██ -->
+<section class="cta-sec">
+<div class="container" style="position:relative;z-index:1;">
+  <span class="tag" style="margin-bottom:1.4rem;display:inline-flex;"><span class="tag-dot"></span>Let's build together</span>
+  <h2>Have a logistics app?<br><span class="grad">Let's ship it.</span></h2>
+  <p>Native Android delivery tools, image capture, offline sync, and secure internal rollout — built from the ground up.</p>
+  <div class="ctabtns">
+    <a class="btn-p" href="https://toddtransit.com/" target="_blank">Visit ToddTransit →</a>
+    <a class="btn-g" href="mailto:muaz8601@gmail.com">Get in Touch</a>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p>ToddTransit — Android Portfolio Case Study</p>
+  <p>Hilt · Retrofit · Coil · ImagePicker · Signature View · Internal Play Store · Slack · Jira · Toggl</p>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animC(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animC);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='#22c55e';});el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='#22c55e';});});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.09});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.querySelector('.mesh').style.transform=`translateY(${window.scrollY*.14}px)`;});
+</script>
+</body>
+</html>

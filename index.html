@@ -34,19 +34,23 @@
 
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 
-@media(max-width:960px){.projects-intro{grid-template-columns:1fr;}.stat-strip{gap:2rem;}.hero{grid-template-columns:1fr;}}
-
-.timeline{position:relative;display:grid;grid-template-columns:1fr minmax(40px,2rem) 1fr;column-gap:3rem;max-width:920px;margin-top:2rem;}
-.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(79,140,255,.18);transform:translateX(-50%);}
-.timeline-item{position:relative;margin-bottom:1.6rem;padding:1.6rem 1.8rem;border-radius:24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,.08);}
-.timeline-item::before{content:'';position:absolute;left:50%;top:1.3rem;width:14px;height:14px;border-radius:50%;background:var(--blue);border:3px solid var(--bg);transform:translateX(-50%);}
-.timeline-item:nth-child(odd){grid-column:1;}
-.timeline-item:nth-child(even){grid-column:3;}
-.timeline-date{display:block;font-size:.92rem;font-weight:700;color:var(--blue);margin-bottom:.5rem;letter-spacing:.04em;text-transform:uppercase;}
-.timeline-item h3{margin:0 0 .4rem;font-size:1.18rem;font-weight:800;}
-.timeline-item p{margin:0;color:var(--muted);line-height:1.75;font-size:1rem;}
-
-@media(max-width:960px){.timeline{grid-template-columns:1fr;padding-left:0;}.timeline::before{left:1rem;transform:none;}.timeline-item{grid-column:1;padding-left:2.4rem;}.timeline-item::before{left:1rem;transform:none;}}
+@media(max-width:960px){.projects-intro{grid-template-columns:1fr;}.stat-strip{gap:2rem;}.hero{grid-template-columns:1fr;}.tlhdr{grid-template-columns:1fr;gap:1.5rem;}}
+.tl-sec{padding:7rem 0;}
+.tlhdr{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4.5rem;}
+.tlhdr-r{color:var(--muted);font-size:.98rem;font-weight:300;line-height:1.75;}
+.tlt{position:relative;}
+.tlline{position:absolute;left:21px;top:22px;bottom:22px;width:1px;background:linear-gradient(to bottom,transparent,var(--border),var(--blue),var(--border),transparent);}
+.tlit{display:grid;grid-template-columns:52px 1fr;gap:1.8rem;padding:2rem 0;border-bottom:1px solid var(--border);}
+.tlit:last-child{border-bottom:none;}
+.tlnode{display:flex;flex-direction:column;align-items:center;}
+.tlcirc{width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;position:relative;z-index:1;transition:border-color .3s,box-shadow .3s;}
+.tlit.a .tlcirc{border-color:var(--blue);box-shadow:0 0 0 4px rgba(79,140,255,0.14),0 0 18px rgba(79,140,255,0.28);background:rgba(79,140,255,0.1);}
+.tlbody{padding-top:.5rem;}
+.tlph{font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
+.tltit{font-weight:800;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:.45rem;}
+.tldesc{font-size:.96rem;font-weight:300;color:var(--muted);line-height:1.72;margin-bottom:1rem;}
+.tltags{display:flex;gap:.45rem;flex-wrap:wrap;}
+.tltag{font-size:.68rem;font-weight:600;letter-spacing:.04em;padding:.22rem .65rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);}
 
 </style>
 </head>
@@ -58,6 +62,9 @@
 
 <nav>
   <a class="nav-logo" href="#"><span class="nav-dot"></span>MuazDev</a>
+  <button class="nav-toggle" aria-label="Toggle navigation">
+    <span></span>
+  </button>
   <div class="nav-links">
     <a class="nav-link" href="#projects">Projects</a>
     <a class="nav-link" href="#contact">Contact</a>
@@ -86,60 +93,62 @@
     </div>
     <div class="intro-line">Hi 👋, I am Muhammad Moaz</div>
     <h1 class="hero-headline">I turn mobile ideas into production apps.</h1>
-    <p class="sub">I build <span class="hl">Android</span> and <span class="hl">Flutter</span> products, and use <span class="hl">Compose Multiplatform</span> to create modern cross-platform apps. I migrate legacy codebases to Jetpack Compose and deliver polished MVPs with fast, reliable execution.</p>
-    <div class="hero-actions">
+    <div style="margin-top:1.6rem;" class="hero-actions">
       <a class="btn-p" href="https://github.com/muazdev26" target="_blank">View GitHub Profile →</a>
       <a class="btn-g" href="#projects">Explore Work</a>
     </div>
+  </div>
+  <div class="hero-right-panel">
+    <p class="sub">I build native <span class="hl">Android</span> apps using <span class="hl">Kotlin</span> and <span class="hl">Java</span>, and develop cross-platform applications with <span class="hl">Compose Multiplatform</span> and <span class="hl">Flutter</span>.<br>I modernize legacy codebases by migrating them to <span class="hl">Jetpack Compose</span> and deliver polished MVPs with fast, reliable execution.</p>
   </div>
 </div>
 </div>
 
 <!-- ██ TIMELINE ██ -->
-<section id="timeline" class="ps-sec">
+<section id="timeline" class="ps-sec tl-sec">
   <div class="container">
-    <div style="margin-bottom:2rem;" class="rv"><span class="tag"><span class="tag-dot"></span>01 — Timeline</span></div>
-    <h2 class="st rv">My Career Journey</h2>
-    <div class="timeline">
-      <div class="timeline-item rv d1">
-        <span class="timeline-date">Dec 2020 - Oct 2021</span>
-        <h3>Funzoft</h3>
-        <p>Onsite in Multan — Android development and client-facing delivery.</p>
+    <div class="tlhdr rv">
+      <div>
+        <span class="tag"><span class="tag-dot"></span>01 — Career</span>
+        <h2 class="st">My Career Journey</h2>
       </div>
-      <div class="timeline-item rv d2">
-        <span class="timeline-date">Feb 2022 - Sep 2022</span>
-        <h3>Eternosoft</h3>
-        <p>Freelance product development — enterprise apps and business workflows.</p>
-      </div>
-      <div class="timeline-item rv d3">
-        <span class="timeline-date">Apr 2022 - Sep 2022</span>
-        <h3>iGo Africa</h3>
-        <p>Freelance AgriTech marketplace work — payments, commerce, and farmer tools.</p>
-      </div>
-      <div class="timeline-item rv d1">
-        <span class="timeline-date">Mar 2023 - Jun 2023</span>
-        <h3>ToddTransit</h3>
-        <p>Freelance transport operations — route management and dispatch systems.</p>
-      </div>
-      <div class="timeline-item rv d2">
-        <span class="timeline-date">Jul 2023 - May 2025</span>
-        <h3>Mini WMS</h3>
-        <p>Freelance supply chain platform — inventory, scanning, and warehouse workflows.</p>
-      </div>
-      <div class="timeline-item rv d3">
-        <span class="timeline-date">Dec 2023 - Mar 2024</span>
-        <h3>Tabbery Mobile App</h3>
-        <p>Freelance mobile delivery — finished mobile product with design and launch support.</p>
-      </div>
-      <div class="timeline-item rv d1">
-        <span class="timeline-date">Feb 2024 - Dec 2025</span>
-        <h3>VisionTif</h3>
-        <p>Freelance design collaboration platform — client workflows and visual tools.</p>
-      </div>
-      <div class="timeline-item rv d2">
-        <span class="timeline-date">May 2024 - May 2025</span>
-        <h3>ScoutFlix</h3>
-        <p>Freelance sports tech build — cricket scouting, video highlights, and athlete workflows.</p>
+      <div class="tlhdr-r">A milestone-driven career across Android product builds, legacy migration, and mobile release delivery. Every step is a polished delivery sprint toward production-ready apps.</div>
+    </div>
+    <div class="tlt rv d1">
+      <div class="tlline"></div>
+      <div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">📦</div></div>
+          <div class="tlbody"><div class="tlph">Dec 2020 - Oct 2021</div><div class="tltit">Funzoft</div><div class="tldesc">Onsite Android development and client-facing delivery for local enterprise customers.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🛠️</div></div>
+          <div class="tlbody"><div class="tlph">Feb 2022 - Sep 2022</div><div class="tltit">Eternosoft</div><div class="tldesc">Freelance product development — enterprise apps, workflows, and performance improvements.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🌾</div></div>
+          <div class="tlbody"><div class="tlph">Apr 2022 - Sep 2022</div><div class="tltit">iGo Africa</div><div class="tldesc">AgriTech marketplace work — payments, commerce, and farmer tools for East African markets.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🚚</div></div>
+          <div class="tlbody"><div class="tlph">Mar 2023 - Jun 2023</div><div class="tltit">ToddTransit</div><div class="tldesc">Transport operations app for route management, dispatch, and fleet visibility.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">📦</div></div>
+          <div class="tlbody"><div class="tlph">Jul 2023 - May 2025</div><div class="tltit">Mini WMS</div><div class="tldesc">Supply chain platform — inventory, scanning, warehouse workflows, and Play Store maintenance.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🚀</div></div>
+          <div class="tlbody"><div class="tlph">Dec 2023 - Mar 2024</div><div class="tltit">Tabbery Mobile App</div><div class="tldesc">Delivery mobile product with design, launch support, and polished production execution.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🎨</div></div>
+          <div class="tlbody"><div class="tlph">Feb 2024 - Dec 2025</div><div class="tltit">VisionTif</div><div class="tldesc">Design collaboration platform work — client workflows and visual tool integrations.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🏏</div></div>
+          <div class="tlbody"><div class="tlph">May 2024 - May 2025</div><div class="tltit">ScoutFlix</div><div class="tldesc">Sports tech build for cricket scouting, video highlights, and athlete workflows.</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -404,6 +413,13 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.09});
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 window.addEventListener('scroll',()=>{document.querySelector('.mesh').style.transform=`translateY(${window.scrollY*.14}px)`;});
+
+const navToggle=document.querySelector('.nav-toggle');
+const navLinks=document.querySelector('.nav-links');
+navToggle?.addEventListener('click',()=>navLinks?.classList.toggle('active'));
+document.querySelectorAll('.nav-links a').forEach(link=>{
+  link.addEventListener('click',()=>navLinks?.classList.remove('active'));
+});
 </script>
 </body>
 </html>

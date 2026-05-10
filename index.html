@@ -52,6 +52,29 @@
 .tltags{display:flex;gap:.45rem;flex-wrap:wrap;}
 .tltag{font-size:.68rem;font-weight:600;letter-spacing:.04em;padding:.22rem .65rem;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--muted);}
 
+/* ── TESTIMONIALS ──────────────────────── */
+.testimonials-container{margin-top:3rem;}
+.testimonials-carousel{position:relative;overflow:hidden;border-radius:var(--r2);background:var(--bg2);border:1px solid var(--border);}
+.testimonials-track{display:flex;width:600%;transition:transform 0.6s ease-in-out;}
+.testimonial-card{flex-shrink:0;width:16.666%;padding:2rem;display:flex;flex-direction:column;gap:1.5rem;}
+.testimonial-footer{display:flex;justify-content:center;margin-top:auto;}
+.testimonial-user{display:flex;align-items:center;gap:0.75rem;}
+.user-avatar{width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--text);flex-shrink:0;}
+.user-info{display:flex;flex-direction:column;gap:0.25rem;text-align:left;}
+.user-name{font-weight:700;font-size:1rem;color:var(--text);}
+.user-location{display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--muted);font-weight:500;}
+.flag{font-size:1.1rem;}
+.platform{font-size:0.75rem;color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.testimonial-text{font-size:1.1rem;font-weight:400;color:var(--muted);line-height:1.6;margin:0;text-align:left;}
+.carousel-controls{display:flex;align-items:center;justify-content:center;gap:2rem;margin-top:2rem;}
+.carousel-btn{position:relative;width:48px;height:48px;border-radius:50%;background:rgba(79,140,255,0.1);border:1px solid rgba(79,140,255,0.2);color:var(--blue);font-size:1.4rem;font-weight:600;cursor:pointer;transition:all 0.2s;z-index:2;}
+.carousel-btn:hover{background:var(--blue);color:#fff;transform:scale(1.05);}
+.carousel-indicators{display:flex;gap:0.75rem;}
+.indicator{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:all 0.2s;}
+.indicator.active{background:var(--blue);transform:scale(1.2);}
+
+@media(max-width:960px){.testimonial-card{padding:1.5rem;}.carousel-btn{width:40px;height:40px;font-size:1.2rem;}.testimonial-text{font-size:1rem;}.user-avatar{width:36px;height:36px;font-size:1.1rem;}}
+@media(max-width:600px){.testimonial-card{padding:1rem;}.testimonial-text{font-size:0.95rem;}.user-avatar{width:32px;height:32px;font-size:1rem;}.carousel-controls{gap:1rem;}.carousel-btn{width:36px;height:36px;font-size:1rem;}}
 </style>
 </head>
 <body>
@@ -67,6 +90,8 @@
   </button>
   <div class="nav-links">
     <a class="nav-link" href="#projects">Projects</a>
+    <a class="nav-link" href="#feedback">Feedback</a>
+    <a class="nav-link" href="#timeline">Career</a>
     <a class="nav-link" href="#contact">Contact</a>
     <a class="nav-cta" href="https://github.com/muazdev26" target="_blank">GitHub ↗</a>
   </div>
@@ -104,57 +129,7 @@
 </div>
 </div>
 
-<!-- ██ TIMELINE ██ -->
-<section id="timeline" class="ps-sec tl-sec">
-  <div class="container">
-    <div class="tlhdr rv">
-      <div>
-        <span class="tag"><span class="tag-dot"></span>01 — Career</span>
-        <h2 class="st">My Career Journey</h2>
-      </div>
-      <div class="tlhdr-r">A milestone-driven career across Android product builds, legacy migration, and mobile release delivery. Every step is a polished delivery sprint toward production-ready apps.</div>
-    </div>
-    <div class="tlt rv d1">
-      <div class="tlline"></div>
-      <div>
-        <div class="tlit a">
-          <div class="tlnode"><div class="tlcirc">📦</div></div>
-          <div class="tlbody"><div class="tlph">Dec 2020 - Oct 2021</div><div class="tltit">Funzoft</div><div class="tldesc">Onsite Android development and client-facing delivery for local enterprise customers.</div></div>
-        </div>
-        <div class="tlit a">
-          <div class="tlnode"><div class="tlcirc">🛠️</div></div>
-          <div class="tlbody"><div class="tlph">Feb 2022 - Sep 2022</div><div class="tltit">Eternosoft</div><div class="tldesc">Freelance product development — enterprise apps, workflows, and performance improvements.</div></div>
-        </div>
-        <div class="tlit a">
-          <div class="tlnode"><div class="tlcirc">🌾</div></div>
-          <div class="tlbody"><div class="tlph">Apr 2022 - Sep 2022</div><div class="tltit">iGo Africa</div><div class="tldesc">AgriTech marketplace work — payments, commerce, and farmer tools for East African markets.</div></div>
-        </div>
-        <div class="tlit a">
-          <div class="tlnode"><div class="tlcirc">🚚</div></div>
-          <div class="tlbody"><div class="tlph">Mar 2023 - Jun 2023</div><div class="tltit">ToddTransit</div><div class="tldesc">Transport operations app for route management, dispatch, and fleet visibility.</div></div>
-        </div>
-        <div class="tlit a">
-          <div class="tlnode"><div class="tlcirc">📦</div></div>
-          <div class="tlbody"><div class="tlph">Jul 2023 - May 2025</div><div class="tltit">Mini WMS</div><div class="tldesc">Supply chain platform — inventory, scanning, warehouse workflows, and Play Store maintenance.</div></div>
-        </div>
-        <div class="tlit a">
-          <div class="tlnode"><div class="tlcirc">🚀</div></div>
-          <div class="tlbody"><div class="tlph">Dec 2023 - Mar 2024</div><div class="tltit">Tabbery Mobile App</div><div class="tldesc">Delivery mobile product with design, launch support, and polished production execution.</div></div>
-        </div>
-        <div class="tlit a">
-          <div class="tlnode"><div class="tlcirc">🎨</div></div>
-          <div class="tlbody"><div class="tlph">Feb 2024 - Dec 2025</div><div class="tltit">VisionTif</div><div class="tldesc">Design collaboration platform work — client workflows and visual tool integrations.</div></div>
-        </div>
-        <div class="tlit a">
-          <div class="tlnode"><div class="tlcirc">🏏</div></div>
-          <div class="tlbody"><div class="tlph">May 2024 - May 2025</div><div class="tltit">ScoutFlix</div><div class="tldesc">Sports tech build for cricket scouting, video highlights, and athlete workflows.</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ██ PROJECTS ██ -->
 <section id="projects" class="ps-sec">
   <div class="container">
 
@@ -383,6 +358,183 @@
   </div>
 </section>
 
+<!-- ██ FEEDBACK ██ -->
+<section id="feedback" class="ps-sec">
+  <div class="container">
+    <div class="tlhdr rv">
+      <div>
+        <span class="tag"><span class="tag-dot"></span>03 — Feedback</span>
+        <h2 class="st">What Clients Say</h2>
+      </div>
+      <div class="tlhdr-r">Feedback from clients across different projects and regions.</div>
+    </div>
+    <div class="testimonials-container rv d1">
+      <div class="testimonials-carousel">
+        <div class="testimonials-track">
+          <div class="testimonial-card">
+            <p class="testimonial-text">"Muhammad Muaz delivered good work on this development project and I enjoyed working with him. His communication was top-notch, he met all deadlines, and his skills were reasonably strong. At one point I asked for an additional milestone and he was very forthcoming that the additional work was outside his area of expertise. He helped me find additional freelancers to support the work. I enjoyed working with Muhammad Muaz and will likely have additional jobs for him in the future"</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-user">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                  <div class="user-name">Sunil</div>
+                  <div class="user-location">
+                    <span class="flag">🇮🇳</span>
+                    India
+                  </div>
+                  <div class="platform">Upwork</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-text">"Such a wonderful developer who has never been tired of reviews and modifications. Delivering the project on time. Minimal interaction for explaining the need as he knows the client requirement very well and the knowledge in field is outstanding. He has successfully completed 3 consecutive contracts in time. Looking forward to work with him in more projects."</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-user">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                  <div class="user-name">Bari</div>
+                  <div class="user-location">
+                    <span class="flag">🇮🇹</span>
+                    Italy
+                  </div>
+                  <div class="platform">Upwork</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-text">"Very knowledgeable, fun to work with, very supportive. Efficient and extremely satisfactory results. Muhammad is a real colleague :) Will work with him again."</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-user">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                  <div class="user-name">Milo</div>
+                  <div class="user-location">
+                    <span class="flag">🇨🇦</span>
+                    Canada
+                  </div>
+                  <div class="platform">Upwork</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-text">"Muhammad has been very cooperative and technically sound. He has accepted design changes and suggested some from his side. This helped in completing the project as per expectation,"</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-user">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                  <div class="user-name">Prabhakaran</div>
+                  <div class="user-location">
+                    <span class="flag">🇯🇵</span>
+                    Japan
+                  </div>
+                  <div class="platform">Upwork</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-text">"Good listener responded well and did the job on time. I always hire him for any Android work. Impressive service he gives."</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-user">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                  <div class="user-name">Waleed</div>
+                  <div class="user-location">
+                    <span class="flag">🇺🇸</span>
+                    United States
+                  </div>
+                  <div class="platform">Upwork</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-text">"The communication is good and can fix the bug issue quickly. I will definitely go back for another project. Very recommended! Thanks!"</p>
+            <div class="testimonial-footer">
+              <div class="testimonial-user">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                  <div class="user-name">Ihsan</div>
+                  <div class="user-location">
+                    <span class="flag">🇮🇩</span>
+                    Indonesia
+                  </div>
+                  <div class="platform">Upwork</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn prev-btn" aria-label="Previous testimonial">‹</button>
+        <div class="carousel-indicators">
+          <span class="indicator active" data-slide="0"></span>
+          <span class="indicator" data-slide="1"></span>
+          <span class="indicator" data-slide="2"></span>
+          <span class="indicator" data-slide="3"></span>
+          <span class="indicator" data-slide="4"></span>
+          <span class="indicator" data-slide="5"></span>
+        </div>
+        <button class="carousel-btn next-btn" aria-label="Next testimonial">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ TIMELINE ██ -->
+<section id="timeline" class="ps-sec tl-sec">
+  <div class="container">
+    <div class="tlhdr rv">
+      <div>
+        <span class="tag"><span class="tag-dot"></span>04 — Career</span>
+        <h2 class="st">My Career Journey</h2>
+      </div>
+      <div class="tlhdr-r">A milestone-driven career across Android product builds, legacy migration, and mobile release delivery. Every step is a polished delivery sprint toward production-ready apps.</div>
+    </div>
+    <div class="tlt rv d1">
+      <div class="tlline"></div>
+      <div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">📦</div></div>
+          <div class="tlbody"><div class="tlph">Dec 2020 - Oct 2021</div><div class="tltit">Funzoft</div><div class="tldesc">Onsite Android development and client-facing delivery for local enterprise customers.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🛠️</div></div>
+          <div class="tlbody"><div class="tlph">Feb 2022 - Sep 2022</div><div class="tltit">Eternosoft</div><div class="tldesc">Freelance product development — enterprise apps, workflows, and performance improvements.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🌾</div></div>
+          <div class="tlbody"><div class="tlph">Apr 2022 - Sep 2022</div><div class="tltit">iGo Africa</div><div class="tldesc">AgriTech marketplace work — payments, commerce, and farmer tools for East African markets.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🚚</div></div>
+          <div class="tlbody"><div class="tlph">Mar 2023 - Jun 2023</div><div class="tltit">ToddTransit</div><div class="tldesc">Transport operations app for route management, dispatch, and fleet visibility.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">📦</div></div>
+          <div class="tlbody"><div class="tlph">Jul 2023 - May 2025</div><div class="tltit">Mini WMS</div><div class="tldesc">Supply chain platform — inventory, scanning, warehouse workflows, and Play Store maintenance.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🚀</div></div>
+          <div class="tlbody"><div class="tlph">Dec 2023 - Mar 2024</div><div class="tltit">Tabbery Mobile App</div><div class="tldesc">Delivery mobile product with design, launch support, and polished production execution.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🎨</div></div>
+          <div class="tlbody"><div class="tlph">Feb 2024 - Dec 2025</div><div class="tltit">VisionTif</div><div class="tldesc">Design collaboration platform work — client workflows and visual tool integrations.</div></div>
+        </div>
+        <div class="tlit a">
+          <div class="tlnode"><div class="tlcirc">🏏</div></div>
+          <div class="tlbody"><div class="tlph">May 2024 - May 2025</div><div class="tltit">ScoutFlix</div><div class="tldesc">Sports tech build for cricket scouting, video highlights, and athlete workflows.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ██ CTA ██ -->
 <section class="cta-sec" id="contact">
   <div class="container" style="position:relative;z-index:1;">
@@ -420,6 +572,74 @@ navToggle?.addEventListener('click',()=>navLinks?.classList.toggle('active'));
 document.querySelectorAll('.nav-links a').forEach(link=>{
   link.addEventListener('click',()=>navLinks?.classList.remove('active'));
 });
+
+// Testimonial Carousel
+const testimonialsTrack = document.querySelector('.testimonials-track');
+const testimonialCards = document.querySelectorAll('.testimonial-card');
+const indicators = document.querySelectorAll('.indicator');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+
+let currentSlide = 0;
+let autoSlideInterval;
+
+function updateCarousel() {
+  testimonialsTrack.style.transform = `translateX(-${currentSlide * 16.666}%)`;
+  indicators.forEach((indicator, index) => {
+    indicator.classList.toggle('active', index === currentSlide);
+  });
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % testimonialCards.length;
+  updateCarousel();
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + testimonialCards.length) % testimonialCards.length;
+  updateCarousel();
+}
+
+function goToSlide(slideIndex) {
+  currentSlide = slideIndex;
+  updateCarousel();
+}
+
+function startAutoSlide() {
+  autoSlideInterval = setInterval(nextSlide, 4000);
+}
+
+function stopAutoSlide() {
+  clearInterval(autoSlideInterval);
+}
+
+nextBtn.addEventListener('click', () => {
+  stopAutoSlide();
+  nextSlide();
+  startAutoSlide();
+});
+
+prevBtn.addEventListener('click', () => {
+  stopAutoSlide();
+  prevSlide();
+  startAutoSlide();
+});
+
+indicators.forEach((indicator, index) => {
+  indicator.addEventListener('click', () => {
+    stopAutoSlide();
+    goToSlide(index);
+    startAutoSlide();
+  });
+});
+
+// Start auto-sliding
+startAutoSlide();
+
+// Pause on hover
+const carousel = document.querySelector('.testimonials-carousel');
+carousel.addEventListener('mouseenter', stopAutoSlide);
+carousel.addEventListener('mouseleave', startAutoSlide);
 </script>
 </body>
 </html>
